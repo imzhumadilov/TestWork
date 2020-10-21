@@ -1,0 +1,33 @@
+/* 
+  Localizable.strings
+  Arcana
+
+  Created by  Кирилл on 10/26/19.
+  Copyright © 2019 AppCraft. All rights reserved.
+*/
+
+// MARK: - Common
+"OK"            = "OK";
+"SAVE"          = "Сохранить";
+"CANCEL"        = "Отмена";
+"CLOSE"         = "Закрыть";
+"ATTENSION"     = "Внимание!";
+"UNKNOWN"       = "Неизвестно";
+"LOADING"       = "Загрузка";
+"REFRESH"       = "Обновить";
+"TRY_AGAIN"     = "Попробовать еще";
+"YES"           = "Да";
+"NO"            = "Нет";
+"ERROR"         = "Ошибка";
+"WARNING"       = "Предупреждение";
+"CONTINUE"      = "Продолжить";
+"SEARCH"        = "Поиск";
+"NEXT"          = "Далее";
+
+// MARK: - Themes and languages
+"APP_THEME_DARK"    = "Темная";
+"APP_LANG_ENG"      = "Английский";
+"APP_LANG_RUS"      = "Русский";
+
+// MARK: - Initial
+"INITIAL_TITLE" = "";
