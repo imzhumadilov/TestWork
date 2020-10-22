@@ -14,6 +14,7 @@ enum AlbumListAssembly {
         return AlbumListViewController(nibName: AlbumListViewController.identifier, bundle: nil)
     }
     
+    @discardableResult
     static func configure(with reference: AlbumListViewController) -> AlbumListPresenterInput {
         let presenter = AlbumListPresenter()
         

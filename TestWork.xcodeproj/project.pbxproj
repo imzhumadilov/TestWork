@@ -14,6 +14,7 @@
 		28155F332541D25E00B10E59 /* FullImageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28155F2D2541D25E00B10E59 /* FullImageRouter.swift */; };
 		28155F342541D25E00B10E59 /* FullImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28155F2E2541D25E00B10E59 /* FullImageViewController.xib */; };
 		28155F352541D25E00B10E59 /* FullImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28155F2F2541D25E00B10E59 /* FullImagePresenter.swift */; };
+		28155F3B254202D200B10E59 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28155F3A254202D200B10E59 /* TabBarController.swift */; };
 		285D77BD254179190059C71A /* PhotosListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285D77B7254179190059C71A /* PhotosListViewModel.swift */; };
 		285D77BE254179190059C71A /* PhotosListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285D77B8254179190059C71A /* PhotosListViewController.swift */; };
 		285D77BF254179190059C71A /* PhotosListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285D77B9254179190059C71A /* PhotosListAssembly.swift */; };
@@ -88,6 +89,7 @@
 		28155F2D2541D25E00B10E59 /* FullImageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageRouter.swift; sourceTree = "<group>"; };
 		28155F2E2541D25E00B10E59 /* FullImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FullImageViewController.xib; sourceTree = "<group>"; };
 		28155F2F2541D25E00B10E59 /* FullImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImagePresenter.swift; sourceTree = "<group>"; };
+		28155F3A254202D200B10E59 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		285D77B7254179190059C71A /* PhotosListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosListViewModel.swift; sourceTree = "<group>"; };
 		285D77B8254179190059C71A /* PhotosListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosListViewController.swift; sourceTree = "<group>"; };
 		285D77B9254179190059C71A /* PhotosListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosListAssembly.swift; sourceTree = "<group>"; };
@@ -200,6 +202,21 @@
 				28155F2E2541D25E00B10E59 /* FullImageViewController.xib */,
 			);
 			path = FullImage;
+			sourceTree = "<group>";
+		};
+		28155F39254202AB00B10E59 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				28155F3A254202D200B10E59 /* TabBarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		28155F3E254204E200B10E59 /* SavedAlbumsList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SavedAlbumsList;
 			sourceTree = "<group>";
 		};
 		285D77B6254178FB0059C71A /* PhotosList */ = {
@@ -504,6 +521,8 @@
 		288902A82540427000F24C96 /* User Stories */ = {
 			isa = PBXGroup;
 			children = (
+				28155F3E254204E200B10E59 /* SavedAlbumsList */,
+				28155F39254202AB00B10E59 /* TabBar */,
 				285D77E72541B2430059C71A /* AlbumList */,
 				28155F292541D21700B10E59 /* FullImage */,
 				288902A92540427000F24C96 /* Initial */,
@@ -774,6 +793,7 @@
 				285D77C0254179190059C71A /* PhotosListRouter.swift in Sources */,
 				285D77D9254185A90059C71A /* PhotoResponse.swift in Sources */,
 				285D77C7254184C30059C71A /* PhotoUseCase.swift in Sources */,
+				28155F3B254202D200B10E59 /* TabBarController.swift in Sources */,
 				2889025C2540427000F24C96 /* AppManager.swift in Sources */,
 				288902702540427000F24C96 /* AppLocalizationManager.swift in Sources */,
 				288B287E25415587004A9E70 /* AlbumRouter.swift in Sources */,

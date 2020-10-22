@@ -36,7 +36,7 @@ class PhotosListViewController: ViperViewController, PhotosListViewInput {
     // MARK: - Setup functions
     func setupComponents() {
         navigationItem.title = "Photos"
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(rightBarButtonItemTapped))
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -69,7 +69,13 @@ class PhotosListViewController: ViperViewController, PhotosListViewInput {
 }
 
 // MARK: - Actions
-extension PhotosListViewController { }
+extension PhotosListViewController {
+    
+    @objc
+    func rightBarButtonItemTapped() {
+        print(#function)
+    }
+}
 
 // MARK: - Module functions
 extension PhotosListViewController { }
