@@ -14,5 +14,8 @@ target 'TestWork' do
   pod 'GKUseCase', '~> 1.0.1'
   pod 'GKRepresentable', '~> 1.0.1'
 
+  # Network
+  pod 'Alamofire'
+
 end
 

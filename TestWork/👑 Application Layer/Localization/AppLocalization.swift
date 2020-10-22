@@ -38,4 +38,32 @@ enum AppLocalization {
         case russian    = "APP_LANG_RUS"
     }
     
+    enum Errors: String, Localizable {
+        case badRequest                = "BAD_REQUEST"
+        case unauthorized              = "UNAUTHORIZED"
+        case internalServerError       = "INTERNAL_SERVER_ERROR"
+        case notFoundError             = "NOT_FOUND_ERROR"
+        case pushSubscribeFailed       = "PUSH_SUBSCRIBE_FAILED"
+        case pushUnsubscribeFailed     = "PUSH_UNSUBSCRIBE_FAILED"
+        case firebaseAuthError         = "FIREBASE_AUTH_ERROR"
+        case noInternetConnection      = "NO_INTERNET_CONNECTION"
+        case profileNotFilled          = "PROFILE_NOT_FILLED"
+        case userBlocked               = "USER_BLOCKED"
+        case errorPhoneNumber          = "ERROR_PHONE_NUMBER"
+        case errorSmsCode              = "ERROR_SMS_CODE"
+        case failedToSaveData          = "FAILED_TO_SAVE_DATA"
+        case notСompletedError         = "NOT_COMPLETED_ERROR"
+        case existHelpCategory         = "EXIST_HELP_CATEGORY"
+        case notificationEditError     = "NOTIFICATION_EDIT_ERROR"
+        case impossibleDeleteAdvert    = "IMPOSSIBLE_DELETE_ADVERT"
+        case impossibleDeleteResponse  = "IMPOSSIBLE_DELETE_RESPONSE"
+        case impossibleCompleteAdvert  = "IMPOSSIBLE_COMPLETE_ADVERT"
+        case instruction               = "INSTRUCTION"
+        case impossibleComplainReview  = "IMPOSSIBLE_COMPLAIN_REVIEW"
+        case noAccessToThisAdvert      = "NO_ACCESS_TO_THIS_ADVERT"
+        case youAreNotANeighbor        = "YOU_ARE_NOT_A_NEIGHBOR"
+        case addPhotoToForumError      = "ADD_PHOTO_TO_FORUM_ERROR"
+        case invalidSmsCode            = "INVALID_SMS_CODE"
+    }
+    
 }

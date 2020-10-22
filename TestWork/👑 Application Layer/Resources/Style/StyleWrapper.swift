@@ -18,7 +18,7 @@ extension StyleWrapper where Element: UIView {
     
     static func backgroundViewStyle() -> StyleWrapper {
         return .wrap { view in
-            view.backgroundColor = .red
+            view.backgroundColor = .blue
         }
     }
     

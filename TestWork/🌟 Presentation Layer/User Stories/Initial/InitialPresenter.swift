@@ -7,10 +7,11 @@
 //
 
 import GKViper
+import GKRepresentable
 
 protocol InitialPresenterInput: ViperPresenterInput { }
 
-class InitialPresenter: ViperPresenter, InitialPresenterInput, InitialViewOutput, InitialInteractorOutput {
+class InitialPresenter: ViperPresenter, InitialPresenterInput, InitialViewOutput {
     
     // MARK: - Props
     fileprivate var view: InitialViewInput? {
@@ -20,13 +21,6 @@ class InitialPresenter: ViperPresenter, InitialPresenterInput, InitialViewOutput
         return view
     }
     
-    fileprivate var interactor: InitialInteractorInput? {
-        guard let interactor = self._interactor as? InitialInteractorInput else {
-            return nil
-        }
-        return interactor
-    }
-    
     fileprivate var router: InitialRouterInput? {
         guard let router = self._router as? InitialRouterInput else {
             return nil
@@ -34,27 +28,41 @@ class InitialPresenter: ViperPresenter, InitialPresenterInput, InitialViewOutput
         return router
     }
     
+    let albumUseCase: AlbumUseCaseInput
     var viewModel: InitialViewModel
     
     // MARK: - Initialization
     override init() {
         self.viewModel = InitialViewModel()
+        albumUseCase = AlbumUseCase()
     }
     
     // MARK: - InitialPresenterInput
     
     // MARK: - InitialViewOutput
     override func viewIsReady(_ controller: UIViewController) {
-        self.view?.setupInitialState(with: self.viewModel)
-        
-        _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false, block: { [weak self] _ in
-            guard let strongSelf = self else { return }
-            
-            strongSelf.router?.presentMainViewController()
-        })
+        view?.setupInitialState(with: viewModel)
+        albumUseCase.getAlbums()
+        albumUseCase.subscribe(with: self)
     }
     
-    // MARK: - InitialInteractorOutput
-    
     // MARK: - Module functions
+    private func makeSections(with albums: [Album]) {
+        
+        let mainSection = TableSectionModel()
+        
+        for model in albums {
+            let album = AlbumCellModel(text: model.title)
+            mainSection.rows.append(album)
+        }
+                
+        view?.updateSections([mainSection])
+    }
+}
+
+extension InitialPresenter: AlbumUseCaseOutput {
+    
+    func gotAlbums(_ albums: [Album]) {
+        makeSections(with: albums)
+    }
 }

@@ -15,15 +15,14 @@ enum AppConfiguration {
     }
     
     static var serverUrl: String {
-        let url = ""
+        let url = "https://jsonplaceholder.typicode.com"
         if url.isEmpty {
             fatalError("set your server url in AppConfiguration")
         }
         return url
     }
     
-    static var serverApi: String {
-        return AppConfiguration.serverUrl + "/api"
-    }
-    
+//    static var serverApi: String {
+//        return AppConfiguration.serverUrl + "/api"
+//    }
 }
