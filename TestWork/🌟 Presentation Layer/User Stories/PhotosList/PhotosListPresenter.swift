@@ -63,7 +63,9 @@ class PhotosListPresenter: ViperPresenter, PhotosListPresenterInput, PhotosListV
         let mainSection = TableSectionModel()
         
         for photo in photos {
-            let photoModel = PhotoCellModel(photo: photo)
+            let photoModel = PhotoCellModel(title: photo.title,
+                                            imageUrl: photo.image.url,
+                                            thumbnailImageUrl: photo.image.thumbnailUrl)
             photoModel.action = { [weak self] url in
                 self?.router?.pushFullImageVC(with: url)
             }

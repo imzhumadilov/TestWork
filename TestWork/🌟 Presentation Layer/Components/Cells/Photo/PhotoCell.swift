@@ -28,13 +28,13 @@ class PhotoCell: TableCell {
         
         guard let model = model as? PhotoCellModel else { return }
         
-        titleLabel.text = model.photo.title
-        photoImageView.kf.setImage(with: URL(string: model.photo.image.thumbnailUrl))
+        titleLabel.text = model.title
+        photoImageView.kf.setImage(with: URL(string: model.thumbnailImageUrl))
     }
     
     @objc
     private func photoButtonTapped() {
         guard let model = model as? PhotoCellModel else { return }
-        model.action?(model.photo.image.url)
+        model.action?(model.imageUrl)
     }
 }

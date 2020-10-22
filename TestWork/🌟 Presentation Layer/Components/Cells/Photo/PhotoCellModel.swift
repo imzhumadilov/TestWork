@@ -17,9 +17,13 @@ class PhotoCellModel: TableCellModel {
     }
     
     public var action: ActionHandler?
-    public var photo: Photo
+    public var title: String
+    public var imageUrl: String
+    public var thumbnailImageUrl: String
     
-    init(photo: Photo) {
-        self.photo = photo
+    init(title: String, imageUrl: String, thumbnailImageUrl: String) {
+        self.title = title
+        self.imageUrl = imageUrl
+        self.thumbnailImageUrl = thumbnailImageUrl
     }
 }
