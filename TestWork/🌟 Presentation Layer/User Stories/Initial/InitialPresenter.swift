@@ -42,8 +42,13 @@ class InitialPresenter: ViperPresenter, InitialPresenterInput, InitialViewOutput
     // MARK: - InitialViewOutput
     override func viewIsReady(_ controller: UIViewController) {
         view?.setupInitialState(with: viewModel)
+        
         albumUseCase.getAlbums()
         albumUseCase.subscribe(with: self)
+    }
+    
+    func didSelect(album: Album) {
+        router?.pushPhotosListVC(with: album)
     }
     
     // MARK: - Module functions
@@ -52,7 +57,7 @@ class InitialPresenter: ViperPresenter, InitialPresenterInput, InitialViewOutput
         let mainSection = TableSectionModel()
         
         for model in albums {
-            let album = AlbumCellModel(text: model.title)
+            let album = AlbumCellModel(album: model)
             mainSection.rows.append(album)
         }
                 

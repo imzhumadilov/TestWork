@@ -14,9 +14,9 @@ class AlbumCellModel: TableCellModel {
         return AlbumCell.identifier
     }
     
-    public var text: String
+    public var album: Album
     
-    init(text: String) {
-        self.text = text
+    init(album: Album) {
+        self.album = album
     }
 }

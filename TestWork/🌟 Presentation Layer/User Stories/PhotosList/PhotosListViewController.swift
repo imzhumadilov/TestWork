@@ -1,48 +1,44 @@
 //
-//  InitialViewController.swift
-//  Arcana
+//  PhotosListViewController.swift
+//  TestWork
 //
-//  Created by  Кирилл on 10/26/19.
-//  Copyright © 2019 AppCraft. All rights reserved.
+//  Created by Ilyas Zhumadilov on 22.10.2020.
+//  Copyright © 2020 ___ORGANIZATIONNAME___. All rights reserved.
 //
 
 import GKViper
 import GKRepresentable
 
-protocol InitialViewInput: ViperViewInput {
+protocol PhotosListViewInput: ViperViewInput {
     func updateSections(_ sections: [TableSectionModel])
 }
 
-protocol InitialViewOutput: ViperViewOutput {
-    func didSelect(album: Album)
+protocol PhotosListViewOutput: ViperViewOutput {
+    func didSelect()
 }
 
-class InitialViewController: ViperViewController, InitialViewInput {
+class PhotosListViewController: ViperViewController, PhotosListViewInput {
 
     // MARK: - Outlets
     @IBOutlet private weak var tableView: UITableView!
     
     // MARK: - Props
-    fileprivate var output: InitialViewOutput? {
-        guard let output = _output as? InitialViewOutput else { return nil }
+    fileprivate var output: PhotosListViewOutput? {
+        guard let output = self._output as? PhotosListViewOutput else { return nil }
         return output
     }
     
     private var sections: [TableSectionModel] = []
     
     // MARK: - Lifecycle
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    override func viewDidLayoutSubviews() {
+    override func viewWillLayoutSubviews() {
         self.applyStyles()
     }
     
     // MARK: - Setup functions
     func setupComponents() {
-        navigationItem.title = "Albums".loc
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        self.navigationItem.title = ""
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -50,23 +46,21 @@ class InitialViewController: ViperViewController, InitialViewInput {
         tableView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 8.0, right: 0.0)
         tableView.backgroundColor = .clear
         tableView.clipsToBounds = true
-        tableView.registerCellNib(AlbumCell.self)
+        tableView.registerCellNib(PhotoCell.self)
     }
     
     func setupActions() { }
     
-    func applyStyles() {
-//        view.apply(.backgroundViewStyle())
-    }
-
+    func applyStyles() { }
+    
+    // MARK: - PhotosListViewInput
     override func setupInitialState(with viewModel: ViperViewModel) {
         super.setupInitialState(with: viewModel)
         
-        setupComponents()
-        setupActions()
+        self.setupComponents()
+        self.setupActions()
     }
-
-    // MARK: - InitialViewInput
+    
     func updateSections(_ sections: [TableSectionModel]) {
         self.sections = sections
         
@@ -74,19 +68,17 @@ class InitialViewController: ViperViewController, InitialViewInput {
             self.tableView.reloadData()
         }
     }
+    
 }
 
 // MARK: - Actions
-extension InitialViewController { }
-
-// MARK: - Animations
-extension InitialViewController { }
+extension PhotosListViewController { }
 
 // MARK: - Module functions
-extension InitialViewController { }
+extension PhotosListViewController { }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
-extension InitialViewController: UITableViewDelegate, UITableViewDataSource {
+extension PhotosListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
@@ -98,8 +90,8 @@ extension InitialViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let model = sections[indexPath.section].rows[indexPath.row] as? AlbumCellModel,
-              let cell = tableView.dequeueReusableCell(withIdentifier: model.cellIdentifier) as? AlbumCell else { return UITableViewCell() }
+        guard let model = sections[indexPath.section].rows[indexPath.row] as? PhotoCellModel,
+              let cell = tableView.dequeueReusableCell(withIdentifier: model.cellIdentifier) as? PhotoCell else { return UITableViewCell() }
         
         cell.model = model
         return cell
@@ -111,11 +103,11 @@ extension InitialViewController: UITableViewDelegate, UITableViewDataSource {
         return model.cellHeight
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = sections[indexPath.section].rows[indexPath.row]
-
-        if let model = model as? AlbumCellModel {
-            output?.didSelect(album: model.album)
-        }
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let model = sections[indexPath.section].rows[indexPath.row]
+//
+//        if let model = model as? AlbumCellModel {
+//            output?.didSelect(album: model.album)
+//        }
+//    }
 }
