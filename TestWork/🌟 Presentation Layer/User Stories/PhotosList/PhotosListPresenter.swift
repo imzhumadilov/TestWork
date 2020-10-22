@@ -62,9 +62,20 @@ class PhotosListPresenter: ViperPresenter, PhotosListPresenterInput, PhotosListV
         let mainSection = TableSectionModel()
         
         for model in photos {
-            let album = PhotoCellModel(photo: model)
-            mainSection.rows.append(album)
+            let photo = PhotoCellModel(photo: model)
+            photo.action = { [weak self] url in
+                self?.router?.pushFullImageVC(with: url)
+            }
+            mainSection.rows.append(photo)
         }
+        
+//        if advertModel.status == .waiting {
+//            let contactModel = ContactCellModel()
+//            contactModel.action = {
+//                self.showForum()
+//            }
+//            mainSection.rows.append(contactModel)
+//        }
                 
         view?.updateSections([mainSection])
     }

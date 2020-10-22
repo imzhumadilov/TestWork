@@ -28,13 +28,11 @@ class InitialPresenter: ViperPresenter, InitialPresenterInput, InitialViewOutput
         return router
     }
     
-    let albumUseCase: AlbumUseCaseInput
     var viewModel: InitialViewModel
     
     // MARK: - Initialization
     override init() {
         self.viewModel = InitialViewModel()
-        albumUseCase = AlbumUseCase()
     }
     
     // MARK: - InitialPresenterInput
@@ -43,31 +41,34 @@ class InitialPresenter: ViperPresenter, InitialPresenterInput, InitialViewOutput
     override func viewIsReady(_ controller: UIViewController) {
         view?.setupInitialState(with: viewModel)
         
-        albumUseCase.getAlbums()
-        albumUseCase.subscribe(with: self)
+        
     }
     
-    func didSelect(album: Album) {
-        router?.pushPhotosListVC(with: album)
+    func viewWillAppear() {
+//        checkConnection()
     }
     
     // MARK: - Module functions
-    private func makeSections(with albums: [Album]) {
-        
-        let mainSection = TableSectionModel()
-        
-        for model in albums {
-            let album = AlbumCellModel(album: model)
-            mainSection.rows.append(album)
-        }
-                
-        view?.updateSections([mainSection])
-    }
-}
-
-extension InitialPresenter: AlbumUseCaseOutput {
-    
-    func gotAlbums(_ albums: [Album]) {
-        makeSections(with: albums)
-    }
+//    private func checkConnection() {
+//        guard ReachabilityManager.isConnectedToInternet else {
+//            if self.timer == nil {
+//                self.showToast(message: AppLocalization.Errors.noInternetConnection.localized, style: .info)
+//            }
+//            self.timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false, block: { _ in
+//                self.checkConnection()
+//            })
+//            return
+//        }
+//        self.timer?.invalidate()
+//        self.prepareApplication()
+//      
+//    }
+//    
+//    private func prepareApplication() {
+//        if UserSession.current.getAuthToken() == nil {
+//            self.router?.showAuth()
+//        } else {
+//            self.userUseCase.getUser()
+//        }
+//    }
 }

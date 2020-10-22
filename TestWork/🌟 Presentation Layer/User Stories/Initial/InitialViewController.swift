@@ -9,18 +9,16 @@
 import GKViper
 import GKRepresentable
 
-protocol InitialViewInput: ViperViewInput {
-    func updateSections(_ sections: [TableSectionModel])
-}
+protocol InitialViewInput: ViperViewInput { }
 
 protocol InitialViewOutput: ViperViewOutput {
-    func didSelect(album: Album)
+    func viewWillAppear()
 }
 
 class InitialViewController: ViperViewController, InitialViewInput {
 
     // MARK: - Outlets
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet weak var tabBar: UITabBar!
     
     // MARK: - Props
     fileprivate var output: InitialViewOutput? {
@@ -28,11 +26,16 @@ class InitialViewController: ViperViewController, InitialViewInput {
         return output
     }
     
-    private var sections: [TableSectionModel] = []
-    
     // MARK: - Lifecycle
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+        self.output?.viewWillAppear()
     }
     
     override func viewDidLayoutSubviews() {
@@ -41,23 +44,13 @@ class InitialViewController: ViperViewController, InitialViewInput {
     
     // MARK: - Setup functions
     func setupComponents() {
-        navigationItem.title = "Albums".loc
+        navigationItem.title = ""
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
-        tableView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 8.0, right: 0.0)
-        tableView.backgroundColor = .clear
-        tableView.clipsToBounds = true
-        tableView.registerCellNib(AlbumCell.self)
     }
     
     func setupActions() { }
     
-    func applyStyles() {
-//        view.apply(.backgroundViewStyle())
-    }
+    func applyStyles() { }
 
     override func setupInitialState(with viewModel: ViperViewModel) {
         super.setupInitialState(with: viewModel)
@@ -67,13 +60,6 @@ class InitialViewController: ViperViewController, InitialViewInput {
     }
 
     // MARK: - InitialViewInput
-    func updateSections(_ sections: [TableSectionModel]) {
-        self.sections = sections
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
 }
 
 // MARK: - Actions
@@ -84,38 +70,3 @@ extension InitialViewController { }
 
 // MARK: - Module functions
 extension InitialViewController { }
-
-// MARK: - UITableViewDelegate, UITableViewDataSource
-extension InitialViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        sections.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        sections[section].rows.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let model = sections[indexPath.section].rows[indexPath.row] as? AlbumCellModel,
-              let cell = tableView.dequeueReusableCell(withIdentifier: model.cellIdentifier) as? AlbumCell else { return UITableViewCell() }
-        
-        cell.model = model
-        return cell
-        
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = self.sections[indexPath.section].rows[indexPath.row]
-        return model.cellHeight
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = sections[indexPath.section].rows[indexPath.row]
-
-        if let model = model as? AlbumCellModel {
-            output?.didSelect(album: model.album)
-        }
-    }
-}

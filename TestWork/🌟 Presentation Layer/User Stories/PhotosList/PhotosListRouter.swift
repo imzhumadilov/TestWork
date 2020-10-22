@@ -8,7 +8,9 @@
 
 import GKViper
 
-protocol PhotosListRouterInput: ViperRouterInput { }
+protocol PhotosListRouterInput: ViperRouterInput {
+    func pushFullImageVC(with imageUrl: String)
+}
 
 class PhotosListRouter: ViperRouter, PhotosListRouterInput {
     
@@ -21,6 +23,13 @@ class PhotosListRouter: ViperRouter, PhotosListRouterInput {
     }
     
     // MARK: - PhotosListRouterInput
+    func pushFullImageVC(with imageUrl: String) {
+        let vc = FullImageAssembly.create()
+        let input = FullImageAssembly.configure(with: vc)
+        input.configure(with: imageUrl)
+        
+        mainController?.navigationController?.pushViewController(vc, animated: true)
+    }
     
     // MARK: - Module functions
 }

@@ -9,7 +9,7 @@
 import GKViper
 
 protocol InitialRouterInput: ViperRouterInput {
-    func pushPhotosListVC(with album: Album)
+    func showAlbumsListVC()
 }
 
 class InitialRouter: ViperRouter, InitialRouterInput {
@@ -23,21 +23,13 @@ class InitialRouter: ViperRouter, InitialRouterInput {
     }
     
     // MARK: - InitialRouterInput
-    func pushPhotosListVC(with album: Album) {
+    func showAlbumsListVC() {
         let vc = PhotosListAssembly.create()
-        let input = PhotosListAssembly.configure(with: vc)
-        input.configure(with: album)
+        _ = PhotosListAssembly.configure(with: vc)
         
+//        vc.modalPresentationStyle = .overFullScreen
+//        mainController?.present(vc, animated: true)
         mainController?.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func presentMainViewController() {
-//        let vc = MainAssembly.create()
-//        _ = MainAssembly.configure(with: vc)
-//
-//        vc.modalPresentationStyle = .fullScreen
-//
-//        self.present(vc, animated: false)
     }
     
     // MARK: - Module functions

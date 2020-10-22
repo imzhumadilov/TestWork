@@ -27,9 +27,11 @@ class AlbumUseCase: UseCase, AlbumUseCaseInput {
     
     // MARK: - Props
     private var output: AlbumUseCaseOutput? {
+        
         guard let output = self._output as? AlbumUseCaseOutput else {
             return nil
         }
+        
         return output
     }
     
@@ -37,6 +39,7 @@ class AlbumUseCase: UseCase, AlbumUseCaseInput {
     
     // MARK: - AlbumUseCaseInput
     func getAlbums() {
+        
         guard ReachabilityManager.isConnectedToInternet else {
             output?.noInternetConnection()
             return
