@@ -27,11 +27,9 @@ class AlbumUseCase: UseCase, AlbumUseCaseInput {
     
     // MARK: - Props
     private var output: AlbumUseCaseOutput? {
-        
         guard let output = self._output as? AlbumUseCaseOutput else {
             return nil
         }
-        
         return output
     }
     
@@ -45,7 +43,7 @@ class AlbumUseCase: UseCase, AlbumUseCaseInput {
             return
         }
         
-        albumRepository.getAlbums { [weak self] (result) -> (Void) in
+        albumRepository.getAlbums { [weak self] (result) in
             
             switch result {
             

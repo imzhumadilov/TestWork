@@ -13,9 +13,7 @@ protocol PhotosListViewInput: ViperViewInput {
     func updateSections(_ sections: [TableSectionModel])
 }
 
-protocol PhotosListViewOutput: ViperViewOutput {
-    func didSelect()
-}
+protocol PhotosListViewOutput: ViperViewOutput { }
 
 class PhotosListViewController: ViperViewController, PhotosListViewInput {
 
@@ -37,8 +35,8 @@ class PhotosListViewController: ViperViewController, PhotosListViewInput {
     
     // MARK: - Setup functions
     func setupComponents() {
-        self.navigationItem.title = ""
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.title = "Photos"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -68,7 +66,6 @@ class PhotosListViewController: ViperViewController, PhotosListViewInput {
             self.tableView.reloadData()
         }
     }
-    
 }
 
 // MARK: - Actions
@@ -102,12 +99,4 @@ extension PhotosListViewController: UITableViewDelegate, UITableViewDataSource {
         let model = self.sections[indexPath.section].rows[indexPath.row]
         return model.cellHeight
     }
-
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let model = sections[indexPath.section].rows[indexPath.row]
-//
-//        if let model = model as? AlbumCellModel {
-//            output?.didSelect(album: model.album)
-//        }
-//    }
 }

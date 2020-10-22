@@ -10,12 +10,12 @@ import GKNetwork
 
 protocol PhotoRepositoryInterface: RepositoryInterface {
     func getPhotos(albumId: String, completion: @escaping (Swift.Result<[Photo], Error>) -> (Void))
+    func getImageData(url: String, completion: @escaping (Swift.Result<Data, Error>) -> (Void))
 }
 
-class PhotoRepository: PhotoRepositoryInterface {
+class PhotoRepository: Repository, PhotoRepositoryInterface {
     
     // MARK: - Props
-    let remoteWorker = RemoteWorker()
     
     // MARK: - AlbumRepositoryInterface
     func getPhotos(albumId: String, completion: @escaping (Swift.Result<[Photo], Error>) -> (Void)) {
@@ -25,17 +25,12 @@ class PhotoRepository: PhotoRepositoryInterface {
             return
         }
         
-        remoteWorker.execute(request, model: [PhotoResponse].self) { (result, response, error) in
+        execute(request, response: [PhotoResponse].self) { (result, response, error) in
             
-            if let mappedResult = result?.compactMap({ $0.mapResponseToDomain() }) as? [Photo],
+            if let mappedResult = result as? [Photo],
                error == nil {
                 
                 completion(.success(mappedResult))
-                
-//            } else if response?.statusCode == ErrorCodes.userBlocked.rawValue {
-//
-//                UserSession.current.showBlockedScreen()
-//                completion(nil, nil)
                 
             } else {
                 completion(.failure(CustomError(title: nil,
@@ -43,6 +38,31 @@ class PhotoRepository: PhotoRepositoryInterface {
                                                 code: ErrorCodes.internalServerError)))
             }
         }
+    }
+    
+    func getImageData(url: String, completion: @escaping (Swift.Result<Data, Error>) -> (Void)) {
+        
+        guard let request = PhotoRouter.Remote.getPhoto(url: url).request else {
+            completion(.failure(CustomError(title: nil, description: AppLocalization.Errors.internalServerError.localized, code: ErrorCodes.internalServerError)))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            if let error = error {
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+                return
+            }
+            
+            guard let data = data else { return }
+            
+            DispatchQueue.main.async {
+                completion(.success(data))
+            }
+            
+        }.resume()
     }
 }
 

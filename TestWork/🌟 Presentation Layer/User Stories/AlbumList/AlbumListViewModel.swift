@@ -9,5 +9,5 @@
 import GKViper
 
 class AlbumListViewModel: ViperViewModel {
-    
+    public var sourceAlbums: [Album] = []
 }

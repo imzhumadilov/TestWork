@@ -28,12 +28,12 @@ class AlbumListPresenter: ViperPresenter, AlbumListPresenterInput, AlbumListView
         return router
     }
     
-    let albumUseCase: AlbumUseCaseInput
-    var viewModel: AlbumListViewModel
+    private let albumUseCase: AlbumUseCaseInput
+    private var viewModel: AlbumListViewModel
     
     // MARK: - Initialization
     override init() {
-        self.viewModel = AlbumListViewModel()
+        viewModel = AlbumListViewModel()
         albumUseCase = AlbumUseCase()
         
         super.init()
@@ -44,23 +44,27 @@ class AlbumListPresenter: ViperPresenter, AlbumListPresenterInput, AlbumListView
     
     // MARK: - AlbumListViewOutput
     override func viewIsReady(_ controller: UIViewController) {
-        self.view?.setupInitialState(with: self.viewModel)
+        self.view?.setupInitialState(with: viewModel)
         
         albumUseCase.getAlbums()
-    }
-    
-    func didSelect(album: Album) {
-        router?.pushPhotosListVC(with: album)
     }
         
     // MARK: - Module functions
     private func makeSections(with albums: [Album]) {
         
+        viewModel.sourceAlbums = albums
+        
         let mainSection = TableSectionModel()
         
-        for model in albums {
-            let album = AlbumCellModel(album: model)
-            mainSection.rows.append(album)
+        for album in albums {
+            
+            let albumModel = AlbumCellModel(title: album.title)
+            
+            albumModel.action = { [weak self] in
+                self?.router?.pushPhotosListVC(with: album)
+            }
+            
+            mainSection.rows.append(albumModel)
         }
                 
         view?.updateSections([mainSection])

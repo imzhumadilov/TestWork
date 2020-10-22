@@ -21,6 +21,6 @@ class AlbumCell: TableCell {
     
     override func updateViews() {
         guard let model = model as? AlbumCellModel else { return }
-        titleLabel.text = model.album.title
+        titleLabel.text = model.title
     }
 }

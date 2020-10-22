@@ -30,59 +30,51 @@ class PhotosListPresenter: ViperPresenter, PhotosListPresenterInput, PhotosListV
         return router
     }
     
-    let photoUseCase: PhotoUseCaseInput
-    var viewModel: PhotosListViewModel
+    private let photoUseCase: PhotoUseCaseInput
+    private var viewModel: PhotosListViewModel
     
     // MARK: - Initialization
     override init() {
         viewModel = PhotosListViewModel()
         photoUseCase = PhotoUseCase()
+        
+        super.init()
+        photoUseCase.subscribe(with: self)
     }
     
     // MARK: - PhotosListPresenterInput
     func configure(with album: Album) {
-        
-        photoUseCase.getPhotos(albumId: album.id)
+        viewModel.album = album
     }
     
     // MARK: - PhotosListViewOutput
     override func viewIsReady(_ controller: UIViewController) {
         view?.setupInitialState(with: viewModel)
         
-        photoUseCase.subscribe(with: self)
+        guard let albumId = viewModel.album?.id else { return }
+        photoUseCase.getPhotos(albumId: albumId)
     }
     
-    func didSelect() {
-//        router?.pushPhotosListVC(with: album)
-    }
-        
     // MARK: - Module functions
     private func makeSections(with photos: [Photo]) {
         
+        viewModel.sourcePhotos = photos
+        
         let mainSection = TableSectionModel()
         
-        for model in photos {
-            let photo = PhotoCellModel(photo: model)
-            photo.action = { [weak self] url in
+        for photo in photos {
+            let photoModel = PhotoCellModel(photo: photo)
+            photoModel.action = { [weak self] url in
                 self?.router?.pushFullImageVC(with: url)
             }
-            mainSection.rows.append(photo)
+            mainSection.rows.append(photoModel)
         }
-        
-//        if advertModel.status == .waiting {
-//            let contactModel = ContactCellModel()
-//            contactModel.action = {
-//                self.showForum()
-//            }
-//            mainSection.rows.append(contactModel)
-//        }
-                
         view?.updateSections([mainSection])
     }
 }
 
 extension PhotosListPresenter: PhotoUseCaseOutput {
-
+    
     func gotPhotos(_ photos: [Photo]) {
         makeSections(with: photos)
     }

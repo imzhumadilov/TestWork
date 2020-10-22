@@ -7,8 +7,11 @@
 //
 
 import GKViper
+import Kingfisher
 
-protocol FullImageViewInput: ViperViewInput { }
+protocol FullImageViewInput: ViperViewInput {
+    func setupImage(with imageUrl: String)
+}
 
 protocol FullImageViewOutput: ViperViewOutput { }
 
@@ -30,8 +33,10 @@ class FullImageViewController: ViperViewController, FullImageViewInput {
     
     // MARK: - Setup functions
     func setupComponents() {
-        self.navigationItem.title = ""
+        self.navigationItem.title = "Photo"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        photoImageView.image = nil
     }
     
     func setupActions() { }
@@ -46,6 +51,9 @@ class FullImageViewController: ViperViewController, FullImageViewInput {
         self.setupActions()
     }
     
+    func setupImage(with imageUrl: String) {
+        photoImageView.kf.setImage(with: URL(string: imageUrl))
+    }
 }
 
 // MARK: - Actions

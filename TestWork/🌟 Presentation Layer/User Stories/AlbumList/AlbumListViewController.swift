@@ -13,9 +13,7 @@ protocol AlbumListViewInput: ViperViewInput {
     func updateSections(_ sections: [TableSectionModel])
 }
 
-protocol AlbumListViewOutput: ViperViewOutput {
-    func didSelect(album: Album)
-}
+protocol AlbumListViewOutput: ViperViewOutput { }
 
 class AlbumListViewController: ViperViewController, AlbumListViewInput {
 
@@ -37,7 +35,7 @@ class AlbumListViewController: ViperViewController, AlbumListViewInput {
     
     // MARK: - Setup functions
     func setupComponents() {
-        navigationItem.title = ""
+        navigationItem.title = "Albums"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         tableView.delegate = self
@@ -106,7 +104,7 @@ extension AlbumListViewController: UITableViewDelegate, UITableViewDataSource {
         let model = sections[indexPath.section].rows[indexPath.row]
 
         if let model = model as? AlbumCellModel {
-            output?.didSelect(album: model.album)
+            model.action?()
         }
     }
 }

@@ -10,12 +10,10 @@ import GKViper
 
 enum FullImageAssembly {
     
-    // Create and return controller
     static func create() -> FullImageViewController {
         return FullImageViewController(nibName: FullImageViewController.identifier, bundle: nil)
     }
     
-    // Create and link modules with controller, return presenter input
     static func configure(with reference: FullImageViewController) -> FullImagePresenterInput {
         let presenter = FullImagePresenter()
         
