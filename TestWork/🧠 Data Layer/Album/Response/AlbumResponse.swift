@@ -15,16 +15,16 @@ struct AlbumResponse: Codable {
     
     // MARK: - CodingKey
     enum CodingKeys: String, CodingKey {
-        case id
-        case title
+        case id = "id"
+        case title = "title"
     }
 }
 
 // MARK: - RemoteMappable
 extension AlbumResponse: RemoteMappable {
     func mapResponseToDomain() -> AnyObject? {
-        return Album(id: String(id ?? 0),
-                     title: title ?? "") as AnyObject
+        Album(id: String(id ?? 0),
+                     title: title ?? "",
+                     photos: []) as AnyObject
     }
 }
-

@@ -55,6 +55,11 @@ class PhotosListPresenter: ViperPresenter, PhotosListPresenterInput, PhotosListV
         photoUseCase.getPhotos(albumId: albumId)
     }
     
+    func saveAlbum() {
+        
+//        albumUseCase.getLocalAlbums()
+    }
+    
     // MARK: - Module functions
     private func makeSections(with photos: [Photo]) {
         

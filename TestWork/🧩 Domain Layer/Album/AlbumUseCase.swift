@@ -9,17 +9,25 @@ import GKUseCase
 
 protocol AlbumUseCaseInput: UseCaseInput {
     func getAlbums()
+    func getLocalAlbums()
+    func updateLocalAlbum(album: Album)
 }
 
 protocol AlbumUseCaseOutput: UseCaseOutput {
     func gotAlbums(_ albums: [Album])
     func loaded(_ error: Error)
+    func loadedLocal(_ error: Error)
+    func gotLocalAlbums(_ albums: [Album])
+    func updatedLocalAlbum(_ album: Album)
     func noInternetConnection()
 }
 
 extension AlbumUseCaseOutput {
     func gotAlbums(_ albums: [Album]) { }
     func loaded(_ error: Error) { }
+    func gotLocalAlbums(_ albums: [Album]) { }
+    func updatedLocalAlbum(_ album: Album) { }
+    func loadedLocal(_ error: Error) { }
     func noInternetConnection() { }
 }
 
@@ -52,6 +60,34 @@ class AlbumUseCase: UseCase, AlbumUseCaseInput {
                 
             case .failure(let error):
                 self?.output?.loaded(error)
+            }
+        }
+    }
+    
+    func getLocalAlbums() {
+        albumRepository.localAlbumsList { [weak self] (result) in
+            
+            switch result {
+            
+            case .success(let albums):
+                self?.output?.gotLocalAlbums(albums)
+                
+            case .failure(let error):
+                self?.output?.loadedLocal(error)
+            }
+        }
+    }
+    
+    func updateLocalAlbum(album: Album) {
+        albumRepository.localUpdateAlbum(album) { [weak self] (result) in
+            
+            switch result {
+            
+            case .success(let album):
+                self?.output?.updatedLocalAlbum(album)
+                
+            case .failure(let error):
+                self?.output?.loadedLocal(error)
             }
         }
     }

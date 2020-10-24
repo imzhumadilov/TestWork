@@ -16,6 +16,7 @@ PODS:
   - Kingfisher (5.15.6):
     - Kingfisher/Core (= 5.15.6)
   - Kingfisher/Core (5.15.6)
+  - SwiftLint (0.40.3)
 
 DEPENDENCIES:
   - Alamofire
@@ -23,6 +24,7 @@ DEPENDENCIES:
   - GKUseCase (~> 1.0.1)
   - GKViper (~> 1.0.0)
   - Kingfisher
+  - SwiftLint
 
 SPEC REPOS:
   trunk:
@@ -34,6 +36,7 @@ SPEC REPOS:
     - GKUseCase
     - GKViper
     - Kingfisher
+    - SwiftLint
 
 SPEC CHECKSUMS:
   Alamofire: 2c792affbdc2f18016e08fdbcacd60aebe1ba593
@@ -44,7 +47,8 @@ SPEC CHECKSUMS:
   GKUseCase: bd50df4ff25a454fdbefff54a7367b799d699c4c
   GKViper: 1ffe86f32753c4fc834c1325ee1892806c9ff1aa
   Kingfisher: b3554e7bf6106115b44e8795300bad580ef2fdc7
+  SwiftLint: dfd554ff0dff17288ee574814ccdd5cea85d76f7
 
-PODFILE CHECKSUM: adad20fcacc15ed79e6d9ea56103bfc90c7cc1a8
+PODFILE CHECKSUM: c6608c44cf6cc0ff80694aebb382b483320f4ef2
 
 COCOAPODS: 1.8.4

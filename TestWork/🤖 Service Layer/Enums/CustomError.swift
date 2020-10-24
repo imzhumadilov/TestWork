@@ -52,4 +52,3 @@ enum ErrorCodes: Int {
     case noAccessToThisAdvert = -105
     case addPhotoToForumError = -106
 }
-

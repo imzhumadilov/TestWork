@@ -7,9 +7,16 @@
 
 import Foundation
 
-struct Album {
+class Album {
     
     // MARK: - Props
     let id: String
     let title: String
+    var photos: [Photo]
+    
+    init(id: String, title: String, photos: [Photo]) {
+        self.id = id
+        self.title = title
+        self.photos = photos
+    }
 }

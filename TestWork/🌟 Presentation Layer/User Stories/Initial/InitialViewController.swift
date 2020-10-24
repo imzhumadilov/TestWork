@@ -18,7 +18,7 @@ protocol InitialViewOutput: ViperViewOutput {
 class InitialViewController: ViperViewController, InitialViewInput {
 
     // MARK: - Outlets
-    @IBOutlet weak var tabBar: UITabBar!
+    @IBOutlet private weak var tabBar: UITabBar!
     
     // MARK: - Props
     fileprivate var output: InitialViewOutput? {
@@ -28,7 +28,7 @@ class InitialViewController: ViperViewController, InitialViewInput {
     
     // MARK: - Lifecycle
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        .lightContent
     }
     
     override func viewWillAppear(_ animated: Bool) {

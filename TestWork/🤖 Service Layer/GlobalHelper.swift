@@ -44,7 +44,7 @@ enum GlobalHelper {
         UIApplication.shared.keyWindow?.rootViewController = vc
     }
     
-    static func defaultHeaders() -> [String : String] {
+    static func defaultHeaders() -> [String: String] {
         return ["Authorization": "Token \(GlobalHelper.getToken() ?? "")"]
     }
     

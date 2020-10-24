@@ -16,6 +16,7 @@ target 'TestWork' do
 
   # Utils
   pod 'Kingfisher'
+  pod 'SwiftLint'
 
   # Network
   pod 'Alamofire'

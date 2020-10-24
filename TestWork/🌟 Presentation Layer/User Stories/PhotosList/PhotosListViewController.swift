@@ -13,7 +13,9 @@ protocol PhotosListViewInput: ViperViewInput {
     func updateSections(_ sections: [TableSectionModel])
 }
 
-protocol PhotosListViewOutput: ViperViewOutput { }
+protocol PhotosListViewOutput: ViperViewOutput {
+    func saveAlbum()
+}
 
 class PhotosListViewController: ViperViewController, PhotosListViewInput {
 
@@ -73,7 +75,7 @@ extension PhotosListViewController {
     
     @objc
     func rightBarButtonItemTapped() {
-        print(#function)
+        output?.saveAlbum()
     }
 }
 

@@ -65,7 +65,7 @@ class PhotoUseCase: UseCase, PhotoUseCaseInput {
                     return
                 }
         
-        photoRepository.getImageData(url: imageUrl) { [weak self] (result) -> (Void) in
+        photoRepository.getImageData(url: imageUrl) { [weak self] (result) -> Void in
             
             switch result {
             
@@ -78,4 +78,3 @@ class PhotoUseCase: UseCase, PhotoUseCaseInput {
         }
     }
 }
-

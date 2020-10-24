@@ -11,7 +11,7 @@ import GKViper
 enum FullImageAssembly {
     
     static func create() -> FullImageViewController {
-        return FullImageViewController(nibName: FullImageViewController.identifier, bundle: nil)
+        FullImageViewController(nibName: FullImageViewController.identifier, bundle: nil)
     }
     
     static func configure(with reference: FullImageViewController) -> FullImagePresenterInput {
