@@ -9,25 +9,25 @@ import GKUseCase
 
 protocol AlbumUseCaseInput: UseCaseInput {
     func getAlbums()
-    func getLocalAlbums()
-    func updateLocalAlbum(album: Album)
+    func localGetAlbums()
+    func localUpdateAlbum(album: Album)
 }
 
 protocol AlbumUseCaseOutput: UseCaseOutput {
     func gotAlbums(_ albums: [Album])
-    func loaded(_ error: Error)
-    func loadedLocal(_ error: Error)
-    func gotLocalAlbums(_ albums: [Album])
-    func updatedLocalAlbum(_ album: Album)
+    func loadedAlbumError(_ error: Error)
+    func localGotAlbums(_ albums: [Album])
+    func localUpdatedAlbum(_ album: Album)
+    func localLoadedAlbumError(_ error: Error)
     func noInternetConnection()
 }
 
 extension AlbumUseCaseOutput {
     func gotAlbums(_ albums: [Album]) { }
-    func loaded(_ error: Error) { }
-    func gotLocalAlbums(_ albums: [Album]) { }
-    func updatedLocalAlbum(_ album: Album) { }
-    func loadedLocal(_ error: Error) { }
+    func loadedAlbumError(_ error: Error) { }
+    func localGotAlbums(_ albums: [Album]) { }
+    func localUpdatedAlbum(_ album: Album) { }
+    func localLoadedAlbumError(_ error: Error) { }
     func noInternetConnection() { }
 }
 
@@ -59,35 +59,35 @@ class AlbumUseCase: UseCase, AlbumUseCaseInput {
                 self?.output?.gotAlbums(albums)
                 
             case .failure(let error):
-                self?.output?.loaded(error)
+                self?.output?.loadedAlbumError(error)
             }
         }
     }
     
-    func getLocalAlbums() {
-        albumRepository.localAlbumsList { [weak self] (result) in
+    func localGetAlbums() {
+        albumRepository.localGetAlbums { [weak self] (result) in
             
             switch result {
             
             case .success(let albums):
-                self?.output?.gotLocalAlbums(albums)
+                self?.output?.localGotAlbums(albums)
                 
             case .failure(let error):
-                self?.output?.loadedLocal(error)
+                self?.output?.localLoadedAlbumError(error)
             }
         }
     }
     
-    func updateLocalAlbum(album: Album) {
+    func localUpdateAlbum(album: Album) {
         albumRepository.localUpdateAlbum(album) { [weak self] (result) in
             
             switch result {
             
             case .success(let album):
-                self?.output?.updatedLocalAlbum(album)
+                self?.output?.localUpdatedAlbum(album)
                 
             case .failure(let error):
-                self?.output?.loadedLocal(error)
+                self?.output?.localLoadedAlbumError(error)
             }
         }
     }

@@ -18,6 +18,7 @@
 		28155F3B254202D200B10E59 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28155F3A254202D200B10E59 /* TabBarController.swift */; };
 		281C62BA2542CB3A002BAF8E /* AlbumEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C62B92542CB3A002BAF8E /* AlbumEntity.swift */; };
 		281C62BE2542CDC1002BAF8E /* PhotoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C62BD2542CDC1002BAF8E /* PhotoEntity.swift */; };
+		2843999E2545907900A9A360 /* PhotoLocalRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2843999D2545907900A9A360 /* PhotoLocalRouter.swift */; };
 		285D77BD254179190059C71A /* PhotosListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285D77B7254179190059C71A /* PhotosListViewModel.swift */; };
 		285D77BE254179190059C71A /* PhotosListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285D77B8254179190059C71A /* PhotosListViewController.swift */; };
 		285D77BF254179190059C71A /* PhotosListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285D77B9254179190059C71A /* PhotosListAssembly.swift */; };
@@ -96,6 +97,7 @@
 		28155F3A254202D200B10E59 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		281C62B92542CB3A002BAF8E /* AlbumEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumEntity.swift; sourceTree = "<group>"; };
 		281C62BD2542CDC1002BAF8E /* PhotoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEntity.swift; sourceTree = "<group>"; };
+		2843999D2545907900A9A360 /* PhotoLocalRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLocalRouter.swift; sourceTree = "<group>"; };
 		285D77B7254179190059C71A /* PhotosListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosListViewModel.swift; sourceTree = "<group>"; };
 		285D77B8254179190059C71A /* PhotosListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosListViewController.swift; sourceTree = "<group>"; };
 		285D77B9254179190059C71A /* PhotosListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosListAssembly.swift; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 		28BE57762542A6950070760D /* Routers */ = {
 			isa = PBXGroup;
 			children = (
+				2843999D2545907900A9A360 /* PhotoLocalRouter.swift */,
 				285D77D4254185900059C71A /* PhotoRouter.swift */,
 			);
 			path = Routers;
@@ -853,6 +856,7 @@
 				285D77D5254185900059C71A /* PhotoRouter.swift in Sources */,
 				288902852540427000F24C96 /* AppThemeManager.swift in Sources */,
 				288902D12540517A00F24C96 /* AlbumCell.swift in Sources */,
+				2843999E2545907900A9A360 /* PhotoLocalRouter.swift in Sources */,
 				281C62BE2542CDC1002BAF8E /* PhotoEntity.swift in Sources */,
 				288902AF2540427000F24C96 /* InitialPresenter.swift in Sources */,
 				288902B12540427000F24C96 /* InitialRouter.swift in Sources */,

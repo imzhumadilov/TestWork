@@ -10,7 +10,7 @@ import GKNetwork
 
 protocol AlbumRepositoryInterface: RepositoryInterface {
     func getAlbums(completion: @escaping (Swift.Result<[Album], Error>) -> Void)
-    func localAlbumsList(completion: @escaping (Swift.Result<[Album], Error>) -> Void)
+    func localGetAlbums(completion: @escaping (Swift.Result<[Album], Error>) -> Void)
     func localUpdateAlbum(_ album: Album, completion: @escaping (Swift.Result<Album, Error>) -> Void)
 }
 
@@ -44,14 +44,14 @@ class AlbumRepository: TestWorkRepository, AlbumRepositoryInterface {
         }
     }
     
-    func localAlbumsList(completion: @escaping (Swift.Result<[Album], Error>) -> Void) {
+    func localGetAlbums(completion: @escaping (Swift.Result<[Album], Error>) -> Void) {
         
-        let request = AlbumLocalRouter.listAll.request
+        let albumRequest = AlbumLocalRouter.listAll.request
         
-        select(request) { (result, error) in
-            if let mappedResult = result as? [Album],
+        select(albumRequest) { (result, error) in
+            if let albums = result as? [Album],
                error == nil {
-                completion(.success(mappedResult))
+                completion(.success(albums))
             } else if let error = error {
                 completion(.failure(error))
             }
@@ -60,9 +60,10 @@ class AlbumRepository: TestWorkRepository, AlbumRepositoryInterface {
     
     func localUpdateAlbum(_ album: Album, completion: @escaping (Swift.Result<Album, Error>) -> Void) {
         
-        update(album) { (result, error) in
-            if let result = result as? Album {
-                completion(.success(result))
+        update(album) { (album, error) in
+            if let album = album as? Album,
+               error == nil {
+                completion(.success(album))
             } else if let error = error {
                 completion(.failure(error))
             }

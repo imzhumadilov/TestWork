@@ -10,20 +10,28 @@ import GKUseCase
 protocol PhotoUseCaseInput: UseCaseInput {
     func getPhotos(albumId: String)
     func getImageData(imageUrl: String)
+    func localGetPhotos()
+    func localUpdatePhotos(photos: [Photo])
 }
 
 protocol PhotoUseCaseOutput: UseCaseOutput {
     func gotPhotos(_ photos: [Photo])
     func gotImageData(_ imageData: Data)
-    func loaded(_ error: Error)
-    func noInternetConnection()
+    func loadedPhotoError(_ error: Error)
+    func localGotPhotos(_ photos: [Photo])
+    func localUpdatedPhotos(_ photos: [Photo])
+    func localLoadedPhotoError(_ error: Error)
+    func noInternetConnectionPhoto()
 }
 
 extension PhotoUseCaseOutput {
     func gotPhotos(_ photos: [Photo]) { }
     func gotImageData(_ imageData: Data) { }
-    func loaded(_ error: Error) { }
-    func noInternetConnection() { }
+    func loadedPhotoError(_ error: Error) { }
+    func localGotPhotos(_ photos: [Photo]) { }
+    func localUpdatedPhotos(_ photos: [Photo]) { }
+    func localLoadedPhotoError(_ error: Error) { }
+    func noInternetConnectionPhoto() { }
 }
 
 class PhotoUseCase: UseCase, PhotoUseCaseInput {
@@ -41,7 +49,7 @@ class PhotoUseCase: UseCase, PhotoUseCaseInput {
     // MARK: - PhotoUseCaseInput
     func getPhotos(albumId: String) {
         guard ReachabilityManager.isConnectedToInternet else {
-            output?.noInternetConnection()
+            output?.noInternetConnectionPhoto()
             return
         }
         
@@ -53,7 +61,7 @@ class PhotoUseCase: UseCase, PhotoUseCaseInput {
                 self?.output?.gotPhotos(photos)
                 
             case .failure(let error):
-                self?.output?.loaded(error)
+                self?.output?.loadedPhotoError(error)
             }
         }
     }
@@ -61,7 +69,7 @@ class PhotoUseCase: UseCase, PhotoUseCaseInput {
     func getImageData(imageUrl: String) {
         
         guard ReachabilityManager.isConnectedToInternet else {
-                    output?.noInternetConnection()
+                    output?.noInternetConnectionPhoto()
                     return
                 }
         
@@ -73,7 +81,35 @@ class PhotoUseCase: UseCase, PhotoUseCaseInput {
                 self?.output?.gotImageData(data)
                 
             case .failure(let error):
-                self?.output?.loaded(error)
+                self?.output?.loadedPhotoError(error)
+            }
+        }
+    }
+    
+    func localGetPhotos() {
+        photoRepository.localGetPhotos { [weak self] (result) in
+            
+            switch result {
+            
+            case .success(let photos):
+                self?.output?.localGotPhotos(photos)
+                
+            case .failure(let error):
+                self?.output?.localLoadedPhotoError(error)
+            }
+        }
+    }
+    
+    func localUpdatePhotos(photos: [Photo]) {
+        photoRepository.localUpdatePhotos(photos) { [weak self] (result) in
+            
+            switch result {
+            
+            case .success(let photos):
+                self?.output?.localUpdatedPhotos(photos)
+                
+            case .failure(let error):
+                self?.output?.localLoadedPhotoError(error)
             }
         }
     }
