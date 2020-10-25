@@ -32,6 +32,9 @@
 // MARK: - Initial
 "INITIAL_TITLE" = "";
 
-// MARK: - NavidationTitle
+// MARK: - Navidation
 "Albums" = "Альбомы";
 "Photos" = "Фотографии";
+
+// MARK: - TabBar
+"Network" = "Сеть";

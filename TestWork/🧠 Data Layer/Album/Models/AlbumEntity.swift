@@ -12,7 +12,6 @@ import CoreData
 public class AlbumEntity: NSManagedObject {
     @NSManaged public var id: String
     @NSManaged public var title: String
-    
 }
 
 extension AlbumEntity: LocalMappable {

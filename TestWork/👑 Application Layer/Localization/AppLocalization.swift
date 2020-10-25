@@ -66,8 +66,12 @@ enum AppLocalization {
         case invalidSmsCode            = "INVALID_SMS_CODE"
     }
     
-    enum NavigationTitle: String, Localizable {
+    enum Navigation: String, Localizable {
         case albums     = "Albums"
         case photos     = "Photos"
+    }
+    
+    enum TabBar: String, Localizable {
+        case network    = "Network"
     }
 }

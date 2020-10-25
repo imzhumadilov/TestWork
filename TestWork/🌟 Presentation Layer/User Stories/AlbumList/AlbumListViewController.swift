@@ -37,7 +37,7 @@ class AlbumListViewController: ViperViewController, AlbumListViewInput {
     
     // MARK: - Setup functions
     func setupComponents() {
-        navigationItem.title = AppLocalization.NavigationTitle.albums.localized
+        navigationItem.title = AppLocalization.Navigation.albums.localized
         
         tableView.delegate = self
         tableView.dataSource = self

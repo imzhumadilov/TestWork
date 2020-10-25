@@ -9,7 +9,7 @@
 import GKViper
 
 protocol InitialRouterInput: ViperRouterInput {
-    func showAlbumsListVC()
+    func presentMainTabBar()
 }
 
 class InitialRouter: ViperRouter, InitialRouterInput {
@@ -23,15 +23,38 @@ class InitialRouter: ViperRouter, InitialRouterInput {
     }
     
     // MARK: - InitialRouterInput
-    func showAlbumsListVC() {
-        let vc = AlbumListAssembly.create()
-        AlbumListAssembly.configure(with: vc)
-        let nc = UINavigationController(rootViewController: vc)
-        
-        nc.modalPresentationStyle = .overFullScreen
-        mainController?.present(nc, animated: true)
-        
-//        mainController?.navigationController?.pushViewController(vc, animated: true)
+    func presentMainTabBar() {
+        DispatchQueue.main.async {
+            let albumsVC = AlbumListAssembly.create()
+            AlbumListAssembly.configure(with: albumsVC)
+            let albumsNC = BasicNavigationController(rootViewController: albumsVC)
+            
+            let viewModel: [BasicTabBarViewModel] = [BasicTabBarViewModel(title: AppLocalization.TabBar.network.localized,
+                                                                          controller: albumsNC,
+                                                                          image: nil)]
+            
+            let tabVC = AZTabBarController(withTabIcons: viewModel.map({ $0.image ?? UIImage() }))
+            
+            for index in 0..<viewModel.count {
+                tabVC.setTitle(viewModel[index].title, atIndex: index)
+                tabVC.setViewController(viewModel[index].controller, atIndex: index)
+            }
+            
+            tabVC.selectedColor = AppTheme.textMain
+            tabVC.highlightColor = AppTheme.textMain
+//            tabVC.defaultColor = AppTheme.subControls
+            tabVC.buttonsBackgroundColor = .white
+            tabVC.selectionIndicatorHeight = 0
+            tabVC.selectionIndicatorColor = .clear
+            tabVC.separatorLineColor = .clear
+            tabVC.tabBarHeight = 59.0
+            tabVC.statusBarStyle = .default
+            tabVC.setIndex(1)
+            
+            tabVC.modalPresentationStyle = .fullScreen
+            
+            self.present(tabVC, animated: true)
+        }
     }
     
     // MARK: - Module functions

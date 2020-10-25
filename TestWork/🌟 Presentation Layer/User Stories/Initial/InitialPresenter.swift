@@ -41,7 +41,7 @@ class InitialPresenter: ViperPresenter, InitialPresenterInput, InitialViewOutput
     override func viewIsReady(_ controller: UIViewController) {
         view?.setupInitialState(with: viewModel)
         
-        router?.showAlbumsListVC()
+        router?.presentMainTabBar()
     }
     
     func viewWillAppear() { }

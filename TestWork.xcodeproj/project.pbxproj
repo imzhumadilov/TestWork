@@ -16,6 +16,12 @@
 		28155F342541D25E00B10E59 /* FullImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28155F2E2541D25E00B10E59 /* FullImageViewController.xib */; };
 		28155F352541D25E00B10E59 /* FullImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28155F2F2541D25E00B10E59 /* FullImagePresenter.swift */; };
 		28155F3B254202D200B10E59 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28155F3A254202D200B10E59 /* TabBarController.swift */; };
+		281AB75D2545FDD200AA5C1E /* AZTabBarButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AB7572545FDD200AA5C1E /* AZTabBarButtonDelegate.swift */; };
+		281AB75E2545FDD200AA5C1E /* AZTabBarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 281AB7582545FDD200AA5C1E /* AZTabBarController.xib */; };
+		281AB75F2545FDD200AA5C1E /* AZTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AB7592545FDD200AA5C1E /* AZTabBarButton.swift */; };
+		281AB7602545FDD200AA5C1E /* AZTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AB75A2545FDD200AA5C1E /* AZTabBarController.swift */; };
+		281AB7612545FDD200AA5C1E /* AZTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AB75B2545FDD200AA5C1E /* AZTabBarDelegate.swift */; };
+		281AB7622545FDD200AA5C1E /* BasicTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281AB75C2545FDD200AA5C1E /* BasicTabBarController.swift */; };
 		281C62BA2542CB3A002BAF8E /* AlbumEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C62B92542CB3A002BAF8E /* AlbumEntity.swift */; };
 		281C62BE2542CDC1002BAF8E /* PhotoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281C62BD2542CDC1002BAF8E /* PhotoEntity.swift */; };
 		2843999E2545907900A9A360 /* PhotoLocalRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2843999D2545907900A9A360 /* PhotoLocalRouter.swift */; };
@@ -95,6 +101,12 @@
 		28155F2E2541D25E00B10E59 /* FullImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FullImageViewController.xib; sourceTree = "<group>"; };
 		28155F2F2541D25E00B10E59 /* FullImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImagePresenter.swift; sourceTree = "<group>"; };
 		28155F3A254202D200B10E59 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		281AB7572545FDD200AA5C1E /* AZTabBarButtonDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AZTabBarButtonDelegate.swift; path = "TestWork/🌟 Presentation Layer/Navigation/TabBarController/AZTabBarButtonDelegate.swift"; sourceTree = SOURCE_ROOT; };
+		281AB7582545FDD200AA5C1E /* AZTabBarController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AZTabBarController.xib; path = "TestWork/🌟 Presentation Layer/Navigation/TabBarController/AZTabBarController.xib"; sourceTree = SOURCE_ROOT; };
+		281AB7592545FDD200AA5C1E /* AZTabBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AZTabBarButton.swift; path = "TestWork/🌟 Presentation Layer/Navigation/TabBarController/AZTabBarButton.swift"; sourceTree = SOURCE_ROOT; };
+		281AB75A2545FDD200AA5C1E /* AZTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AZTabBarController.swift; path = "TestWork/🌟 Presentation Layer/Navigation/TabBarController/AZTabBarController.swift"; sourceTree = SOURCE_ROOT; };
+		281AB75B2545FDD200AA5C1E /* AZTabBarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AZTabBarDelegate.swift; path = "TestWork/🌟 Presentation Layer/Navigation/TabBarController/AZTabBarDelegate.swift"; sourceTree = SOURCE_ROOT; };
+		281AB75C2545FDD200AA5C1E /* BasicTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicTabBarController.swift; path = "TestWork/🌟 Presentation Layer/Navigation/TabBarController/BasicTabBarController.swift"; sourceTree = SOURCE_ROOT; };
 		281C62B92542CB3A002BAF8E /* AlbumEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumEntity.swift; sourceTree = "<group>"; };
 		281C62BD2542CDC1002BAF8E /* PhotoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEntity.swift; sourceTree = "<group>"; };
 		2843999D2545907900A9A360 /* PhotoLocalRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLocalRouter.swift; sourceTree = "<group>"; };
@@ -225,6 +237,19 @@
 			children = (
 			);
 			path = SavedAlbumsList;
+			sourceTree = "<group>";
+		};
+		281AB7642545FDDD00AA5C1E /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				281AB7592545FDD200AA5C1E /* AZTabBarButton.swift */,
+				281AB7572545FDD200AA5C1E /* AZTabBarButtonDelegate.swift */,
+				281AB75A2545FDD200AA5C1E /* AZTabBarController.swift */,
+				281AB7582545FDD200AA5C1E /* AZTabBarController.xib */,
+				281AB75B2545FDD200AA5C1E /* AZTabBarDelegate.swift */,
+				281AB75C2545FDD200AA5C1E /* BasicTabBarController.swift */,
+			);
+			path = TabBarController;
 			sourceTree = "<group>";
 		};
 		281C62B72542CB0D002BAF8E /* Routers */ = {
@@ -532,6 +557,7 @@
 			isa = PBXGroup;
 			children = (
 				288902A52540427000F24C96 /* Navigation Controller */,
+				281AB7642545FDDD00AA5C1E /* TabBarController */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -745,6 +771,7 @@
 				2889027E2540427000F24C96 /* FiraSans-SemiBold.ttf in Resources */,
 				2889028D2540427000F24C96 /* LaunchScreen.storyboard in Resources */,
 				288902C42540433000F24C96 /* LaunchScreen.storyboard in Resources */,
+				281AB75E2545FDD200AA5C1E /* AZTabBarController.xib in Resources */,
 				288902632540427000F24C96 /* LaunchScreen.storyboard in Resources */,
 				285D77F22541B26D0059C71A /* AlbumListViewController.xib in Resources */,
 				2889027A2540427000F24C96 /* FiraSans-ExtraBold.ttf in Resources */,
@@ -825,6 +852,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				288B289725416A4F004A9E70 /* ReachabilityManager.swift in Sources */,
+				281AB75D2545FDD200AA5C1E /* AZTabBarButtonDelegate.swift in Sources */,
+				281AB7612545FDD200AA5C1E /* AZTabBarDelegate.swift in Sources */,
 				28155F332541D25E00B10E59 /* FullImageRouter.swift in Sources */,
 				2889026C2540427000F24C96 /* AppLocalization.swift in Sources */,
 				288902802540427000F24C96 /* FiraSans.swift in Sources */,
@@ -836,6 +865,7 @@
 				2889025A2540427000F24C96 /* AppConfiguration.swift in Sources */,
 				285D77C0254179190059C71A /* PhotosListRouter.swift in Sources */,
 				285D77D9254185A90059C71A /* PhotoResponse.swift in Sources */,
+				281AB75F2545FDD200AA5C1E /* AZTabBarButton.swift in Sources */,
 				285D77C7254184C30059C71A /* PhotoUseCase.swift in Sources */,
 				28155F3B254202D200B10E59 /* TabBarController.swift in Sources */,
 				2889025C2540427000F24C96 /* AppManager.swift in Sources */,
@@ -858,8 +888,10 @@
 				288902D12540517A00F24C96 /* AlbumCell.swift in Sources */,
 				2843999E2545907900A9A360 /* PhotoLocalRouter.swift in Sources */,
 				281C62BE2542CDC1002BAF8E /* PhotoEntity.swift in Sources */,
+				281AB7602545FDD200AA5C1E /* AZTabBarController.swift in Sources */,
 				288902AF2540427000F24C96 /* InitialPresenter.swift in Sources */,
 				288902B12540427000F24C96 /* InitialRouter.swift in Sources */,
+				281AB7622545FDD200AA5C1E /* BasicTabBarController.swift in Sources */,
 				288B288E2541656C004A9E70 /* AlbumResponse.swift in Sources */,
 				285D77EE2541B26D0059C71A /* AlbumListViewModel.swift in Sources */,
 				285D77F12541B26D0059C71A /* AlbumListRouter.swift in Sources */,

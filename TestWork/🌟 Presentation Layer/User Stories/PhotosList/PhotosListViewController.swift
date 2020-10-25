@@ -37,7 +37,7 @@ class PhotosListViewController: ViperViewController, PhotosListViewInput {
     
     // MARK: - Setup functions
     func setupComponents() {
-        navigationItem.title = AppLocalization.NavigationTitle.photos.localized
+        navigationItem.title = AppLocalization.Navigation.photos.localized
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: AppLocalization.General.save.localized,
                                                             style: .plain,
                                                             target: self,
