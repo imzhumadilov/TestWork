@@ -29,16 +29,11 @@ class FullImagePresenter: ViperPresenter, FullImagePresenterInput, FullImageView
         return router
     }
     
-    private let photoUseCase: PhotoUseCaseInput
     private var viewModel: FullImageViewModel
     
     // MARK: - Initialization
-    override init() {
-        viewModel = FullImageViewModel()
-        photoUseCase = PhotoUseCase()
-        
-        super.init()
-        photoUseCase.subscribe(with: self)
+    init(imageUrl: String) {
+        viewModel = FullImageViewModel(imageUrl: imageUrl)
     }
     
     // MARK: - FullImagePresenterInput
@@ -51,15 +46,7 @@ class FullImagePresenter: ViperPresenter, FullImagePresenterInput, FullImageView
         self.view?.setupInitialState(with: self.viewModel)
         
         view?.setupImage(with: viewModel.imageUrl)
-        photoUseCase.getImageData(imageUrl: viewModel.imageUrl)
     }
         
     // MARK: - Module functions
-}
-
-extension FullImagePresenter: PhotoUseCaseOutput {
-    
-    func gotImageData(_ imageData: Data) {
-        viewModel.imageData = imageData
-    }
 }

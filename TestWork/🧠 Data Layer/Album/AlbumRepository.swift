@@ -12,6 +12,7 @@ protocol AlbumRepositoryInterface: RepositoryInterface {
     func getAlbums(completion: @escaping (Swift.Result<[Album], Error>) -> Void)
     func localGetAlbums(completion: @escaping (Swift.Result<[Album], Error>) -> Void)
     func localUpdateAlbum(_ album: Album, completion: @escaping (Swift.Result<Album, Error>) -> Void)
+    func localRemoveAlbum(with id: String, completion: @escaping (Bool) -> Void)
 }
 
 class AlbumRepository: TestWorkRepository, AlbumRepositoryInterface {
@@ -66,6 +67,18 @@ class AlbumRepository: TestWorkRepository, AlbumRepositoryInterface {
                 completion(.success(album))
             } else if let error = error {
                 completion(.failure(error))
+            }
+        }
+    }
+    
+    func localRemoveAlbum(with id: String, completion: @escaping (Bool) -> Void) {
+        let request = AlbumLocalRouter.album(id: id).request
+        
+        delete(request) { (success, _) in
+            if success {
+                completion(true)
+            } else {
+                completion(false)
             }
         }
     }

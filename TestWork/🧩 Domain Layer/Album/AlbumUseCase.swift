@@ -11,6 +11,7 @@ protocol AlbumUseCaseInput: UseCaseInput {
     func getAlbums()
     func localGetAlbums()
     func localUpdateAlbum(album: Album)
+    func localRemoveAlbum(with id: String)
 }
 
 protocol AlbumUseCaseOutput: UseCaseOutput {
@@ -19,7 +20,8 @@ protocol AlbumUseCaseOutput: UseCaseOutput {
     func localGotAlbums(_ albums: [Album])
     func localUpdatedAlbum(_ album: Album)
     func localLoadedAlbumError(_ error: Error)
-    func noInternetConnection()
+    func localRemovedAlbum()
+    func noInternetConnectionAlbum()
 }
 
 extension AlbumUseCaseOutput {
@@ -28,7 +30,8 @@ extension AlbumUseCaseOutput {
     func localGotAlbums(_ albums: [Album]) { }
     func localUpdatedAlbum(_ album: Album) { }
     func localLoadedAlbumError(_ error: Error) { }
-    func noInternetConnection() { }
+    func localRemovedAlbum() { }
+    func noInternetConnectionAlbum() { }
 }
 
 class AlbumUseCase: UseCase, AlbumUseCaseInput {
@@ -47,7 +50,7 @@ class AlbumUseCase: UseCase, AlbumUseCaseInput {
     func getAlbums() {
         
         guard ReachabilityManager.isConnectedToInternet else {
-            output?.noInternetConnection()
+            output?.noInternetConnectionAlbum()
             return
         }
         
@@ -88,6 +91,15 @@ class AlbumUseCase: UseCase, AlbumUseCaseInput {
                 
             case .failure(let error):
                 self?.output?.localLoadedAlbumError(error)
+            }
+        }
+    }
+    
+    func localRemoveAlbum(with id: String) {
+        albumRepository.localRemoveAlbum(with: id) { [weak self] (success) in
+            
+            if success {
+                self?.output?.localRemovedAlbum()
             }
         }
     }

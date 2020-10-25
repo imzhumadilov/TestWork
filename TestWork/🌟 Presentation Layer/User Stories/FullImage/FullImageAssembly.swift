@@ -14,8 +14,8 @@ enum FullImageAssembly {
         FullImageViewController(nibName: FullImageViewController.identifier, bundle: nil)
     }
     
-    static func configure(with reference: FullImageViewController) -> FullImagePresenterInput {
-        let presenter = FullImagePresenter()
+    static func configure(with reference: FullImageViewController, imageUrl: String) -> FullImagePresenterInput {
+        let presenter = FullImagePresenter(imageUrl: imageUrl)
         
         let router = FullImageRouter()
         router._mainController = reference

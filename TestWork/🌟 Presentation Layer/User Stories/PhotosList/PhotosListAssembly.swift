@@ -14,8 +14,9 @@ enum PhotosListAssembly {
         return PhotosListViewController(nibName: PhotosListViewController.identifier, bundle: nil)
     }
     
-    static func configure(with reference: PhotosListViewController) -> PhotosListPresenterInput {
-        let presenter = PhotosListPresenter()
+    @discardableResult
+    static func configure(with reference: PhotosListViewController, album: Album) -> PhotosListPresenterInput {
+        let presenter = PhotosListPresenter(album: album)
         
         let router = PhotosListRouter()
         router._mainController = reference

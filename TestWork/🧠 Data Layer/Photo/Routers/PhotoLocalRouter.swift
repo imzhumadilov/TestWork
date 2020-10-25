@@ -10,6 +10,7 @@ import CoreData
 
 enum PhotoLocalRouter {
     case listAll
+    case photos(albumId: String)
     
     var entityClass: AnyClass {
         return PhotoEntity.self
@@ -19,6 +20,9 @@ enum PhotoLocalRouter {
         switch self {
         case .listAll:
             return LocalFactory.request(entityClass, predicate: nil, sortDescriptors: nil)
+        case .photos(let albumId):
+            let predicate = NSPredicate(format: "albumId = %@", albumId)
+            return LocalFactory.request(entityClass, predicate: predicate, sortDescriptors: nil)
         }
     }
 }

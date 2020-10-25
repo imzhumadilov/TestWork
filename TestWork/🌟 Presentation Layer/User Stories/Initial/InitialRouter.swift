@@ -24,12 +24,14 @@ class InitialRouter: ViperRouter, InitialRouterInput {
     
     // MARK: - InitialRouterInput
     func showAlbumsListVC() {
-        let vc = PhotosListAssembly.create()
-        _ = PhotosListAssembly.configure(with: vc)
+        let vc = AlbumListAssembly.create()
+        AlbumListAssembly.configure(with: vc)
+        let nc = UINavigationController(rootViewController: vc)
         
-//        vc.modalPresentationStyle = .overFullScreen
-//        mainController?.present(vc, animated: true)
-        mainController?.navigationController?.pushViewController(vc, animated: true)
+        nc.modalPresentationStyle = .overFullScreen
+        mainController?.present(nc, animated: true)
+        
+//        mainController?.navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - Module functions

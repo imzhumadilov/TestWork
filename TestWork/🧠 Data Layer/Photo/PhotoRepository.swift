@@ -10,9 +10,10 @@ import GKNetwork
 
 protocol PhotoRepositoryInterface: RepositoryInterface {
     func getPhotos(albumId: String, completion: @escaping (Swift.Result<[Photo], Error>) -> Void)
-    func getImageData(url: String, completion: @escaping (Swift.Result<Data, Error>) -> Void)
-    func localGetPhotos(completion: @escaping (Swift.Result<[Photo], Error>) -> Void)
+    func getImageWithData(photo: Photo, completion: @escaping (Swift.Result<Photo, Error>) -> Void)
+    func localGetPhotos(with albumId: String, completion: @escaping (Swift.Result<[Photo], Error>) -> Void)
     func localUpdatePhotos(_ photos: [Photo], completion: @escaping (Swift.Result<[Photo], Error>) -> Void)
+    func localRemovePhotos(with albumId: String, completion: @escaping (Bool) -> Void)
 }
 
 class PhotoRepository: TestWorkRepository, PhotoRepositoryInterface {
@@ -45,14 +46,14 @@ class PhotoRepository: TestWorkRepository, PhotoRepositoryInterface {
         }
     }
     
-    func getImageData(url: String, completion: @escaping (Swift.Result<Data, Error>) -> Void) {
+    func getImageWithData(photo: Photo, completion: @escaping (Swift.Result<Photo, Error>) -> Void) {
         
-        guard let request = PhotoRouter.Remote.getPhoto(url: url).request else {
+        guard let urlRequest = URL(string: photo.image.url) else {
             completion(.failure(CustomError(title: nil, description: AppLocalization.Errors.internalServerError.localized, code: ErrorCodes.internalServerError)))
             return
         }
         
-        URLSession.shared.dataTask(with: request) { (data, _, error) in
+        URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
             
             if let error = error {
                 completion(.failure(error))
@@ -60,15 +61,15 @@ class PhotoRepository: TestWorkRepository, PhotoRepositoryInterface {
             }
             
             guard let data = data else { return }
-            
-            completion(.success(data))
+            photo.image.data = data
+            completion(.success(photo))
             
         }.resume()
     }
     
-    func localGetPhotos(completion: @escaping (Swift.Result<[Photo], Error>) -> Void) {
+    func localGetPhotos(with albumId: String, completion: @escaping (Swift.Result<[Photo], Error>) -> Void) {
         
-        let photoRequest = PhotoLocalRouter.listAll.request
+        let photoRequest = PhotoLocalRouter.photos(albumId: albumId).request
         
         select(photoRequest) { (result, error) in
             if let photos = result as? [Photo],
@@ -82,11 +83,23 @@ class PhotoRepository: TestWorkRepository, PhotoRepositoryInterface {
     
     func localUpdatePhotos(_ photos: [Photo], completion: @escaping (Swift.Result<[Photo], Error>) -> Void) {
         
-        update(photos) { (photos, error) in
-            if let photos = photos as? [Photo] {
+        update(photos) { (result, error) in
+            if let photos = result as? [Photo] {
                 completion(.success(photos))
             } else if let error = error {
                 completion(.failure(error))
+            }
+        }
+    }
+    
+    func localRemovePhotos(with albumId: String, completion: @escaping (Bool) -> Void) {
+        let request = PhotoLocalRouter.photos(albumId: albumId).request
+        
+        delete(request) { (success, _) in
+            if success {
+                completion(true)
+            } else {
+                completion(false)
             }
         }
     }

@@ -11,13 +11,10 @@ enum PhotoRouter {
     
     enum Remote {
         case getPhotos(albumId: String)
-        case getPhoto(url: String)
         
         var method: HTTPMethod {
             switch self {
             case .getPhotos:
-                return .get
-            case .getPhoto:
                 return .get
             }
         }
@@ -26,8 +23,6 @@ enum PhotoRouter {
             switch self {
             case .getPhotos:
                 return "\(AppConfiguration.serverUrl)/photos"
-            case .getPhoto(let url):
-                return url
             }
         }
         
@@ -36,8 +31,6 @@ enum PhotoRouter {
             case .getPhotos(let albumId):
                 let params: [String: Any] = ["albumId": albumId]
                 return RemoteFactory.request(path: path, parameters: params, headers: nil, method: method)
-            case .getPhoto:
-                return RemoteFactory.request(path: path, parameters: nil, headers: nil, method: method)
             }
         }
     }

@@ -9,28 +9,31 @@ import GKUseCase
 
 protocol PhotoUseCaseInput: UseCaseInput {
     func getPhotos(albumId: String)
-    func getImageData(imageUrl: String)
-    func localGetPhotos()
+    func getImageWithData(photo: Photo)
+    func localGetPhotos(with albumId: String)
     func localUpdatePhotos(photos: [Photo])
+    func localRemovePhotos(with albumId: String)
 }
 
 protocol PhotoUseCaseOutput: UseCaseOutput {
     func gotPhotos(_ photos: [Photo])
-    func gotImageData(_ imageData: Data)
+    func gotImageWithData(_ photo: Photo)
     func loadedPhotoError(_ error: Error)
     func localGotPhotos(_ photos: [Photo])
     func localUpdatedPhotos(_ photos: [Photo])
     func localLoadedPhotoError(_ error: Error)
+    func localRemovedPhotos()
     func noInternetConnectionPhoto()
 }
 
 extension PhotoUseCaseOutput {
     func gotPhotos(_ photos: [Photo]) { }
-    func gotImageData(_ imageData: Data) { }
+    func gotImageWithData(_ photo: Photo) { }
     func loadedPhotoError(_ error: Error) { }
     func localGotPhotos(_ photos: [Photo]) { }
     func localUpdatedPhotos(_ photos: [Photo]) { }
     func localLoadedPhotoError(_ error: Error) { }
+    func localRemovedPhotos() { }
     func noInternetConnectionPhoto() { }
 }
 
@@ -66,19 +69,19 @@ class PhotoUseCase: UseCase, PhotoUseCaseInput {
         }
     }
     
-    func getImageData(imageUrl: String) {
+    func getImageWithData(photo: Photo) {
         
         guard ReachabilityManager.isConnectedToInternet else {
-                    output?.noInternetConnectionPhoto()
-                    return
-                }
+            output?.noInternetConnectionPhoto()
+            return
+        }
         
-        photoRepository.getImageData(url: imageUrl) { [weak self] (result) -> Void in
+        photoRepository.getImageWithData(photo: photo) { [weak self] (result) -> Void in
             
             switch result {
             
-            case .success(let data):
-                self?.output?.gotImageData(data)
+            case .success(let photo):
+                self?.output?.gotImageWithData(photo)
                 
             case .failure(let error):
                 self?.output?.loadedPhotoError(error)
@@ -86,8 +89,8 @@ class PhotoUseCase: UseCase, PhotoUseCaseInput {
         }
     }
     
-    func localGetPhotos() {
-        photoRepository.localGetPhotos { [weak self] (result) in
+    func localGetPhotos(with albumId: String) {
+        photoRepository.localGetPhotos(with: albumId) { [weak self] (result) in
             
             switch result {
             
@@ -110,6 +113,14 @@ class PhotoUseCase: UseCase, PhotoUseCaseInput {
                 
             case .failure(let error):
                 self?.output?.localLoadedPhotoError(error)
+            }
+        }
+    }
+    
+    func localRemovePhotos(with albumId: String) {
+        photoRepository.localRemovePhotos(with: albumId) { [weak self] (success) in
+            if success {
+                self?.output?.localRemovedPhotos()
             }
         }
     }

@@ -31,3 +31,7 @@
 
 // MARK: - Initial
 "INITIAL_TITLE" = "";
+
+// MARK: - NavidationTitle
+"Albums" = "Albums";
+"Photos" = "Photos";

@@ -14,6 +14,7 @@ enum InitialAssembly {
         return InitialViewController(nibName: InitialViewController.identifier, bundle: nil)
     }
     
+    @discardableResult
     static func configure(with reference: InitialViewController) -> InitialPresenterInput {
         let presenter = InitialPresenter()
         

@@ -9,6 +9,9 @@
 import GKViper
 
 class FullImageViewModel: ViperViewModel {
-    public var imageUrl = ""
-    public var imageData: Data?
+    public var imageUrl: String
+    
+    init(imageUrl: String) {
+        self.imageUrl = imageUrl
+    }
 }

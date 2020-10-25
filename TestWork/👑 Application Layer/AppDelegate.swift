@@ -29,13 +29,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Window configuration
     private func setup(_ window: UIWindow) {
-//        let vc = AlbumListAssembly.create()
-//        _ = AlbumListAssembly.configure(with: vc)
-//        let navigationController = UINavigationController(rootViewController: vc)
+//        let vc = InitialAssembly.create()
+//        InitialAssembly.configure(with: vc)
+        
+        let vc = AlbumListAssembly.create()
+        AlbumListAssembly.configure(with: vc)
+        let navigationController = UINavigationController(rootViewController: vc)
 
         self.window = window
-        self.window?.rootViewController = TabBarController()
-//        self.window?.rootViewController = navigationController
+        self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
     }
 }

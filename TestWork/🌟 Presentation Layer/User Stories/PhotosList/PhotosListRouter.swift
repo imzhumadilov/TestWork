@@ -25,8 +25,7 @@ class PhotosListRouter: ViperRouter, PhotosListRouterInput {
     // MARK: - PhotosListRouterInput
     func pushFullImageVC(with imageUrl: String) {
         let vc = FullImageAssembly.create()
-        let input = FullImageAssembly.configure(with: vc)
-        input.configure(with: imageUrl)
+        FullImageAssembly.configure(with: vc, imageUrl: imageUrl)
         
         mainController?.navigationController?.pushViewController(vc, animated: true)
     }

@@ -9,7 +9,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InitialViewController" customModule="TestWork" customModuleProvider="target">
             <connections>
-                <outlet property="tabBar" destination="El9-nH-TuO" id="aHx-B5-FQ5"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Rz8-f9-Cv3"/>
             </connections>
         </placeholder>
@@ -17,23 +16,8 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="El9-nH-TuO">
-                    <rect key="frame" x="0.0" y="727" width="390" height="83"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <items>
-                        <tabBarItem systemItem="favorites" id="EaL-S8-XFv"/>
-                        <tabBarItem systemItem="more" id="0Gz-EL-Phv"/>
-                    </items>
-                </tabBar>
-            </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstItem="El9-nH-TuO" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="1uJ-al-InK"/>
-                <constraint firstItem="El9-nH-TuO" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Ku7-Bo-Srw"/>
-                <constraint firstItem="El9-nH-TuO" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="kMe-3R-ENr"/>
-            </constraints>
             <point key="canvasLocation" x="130.76923076923077" y="152.13270142180093"/>
         </view>
     </objects>

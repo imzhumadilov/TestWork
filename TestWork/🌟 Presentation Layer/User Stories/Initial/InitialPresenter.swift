@@ -41,34 +41,10 @@ class InitialPresenter: ViperPresenter, InitialPresenterInput, InitialViewOutput
     override func viewIsReady(_ controller: UIViewController) {
         view?.setupInitialState(with: viewModel)
         
-        
+        router?.showAlbumsListVC()
     }
     
-    func viewWillAppear() {
-//        checkConnection()
-    }
+    func viewWillAppear() { }
     
     // MARK: - Module functions
-//    private func checkConnection() {
-//        guard ReachabilityManager.isConnectedToInternet else {
-//            if self.timer == nil {
-//                self.showToast(message: AppLocalization.Errors.noInternetConnection.localized, style: .info)
-//            }
-//            self.timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false, block: { _ in
-//                self.checkConnection()
-//            })
-//            return
-//        }
-//        self.timer?.invalidate()
-//        self.prepareApplication()
-//      
-//    }
-//    
-//    private func prepareApplication() {
-//        if UserSession.current.getAuthToken() == nil {
-//            self.router?.showAuth()
-//        } else {
-//            self.userUseCase.getUser()
-//        }
-//    }
 }

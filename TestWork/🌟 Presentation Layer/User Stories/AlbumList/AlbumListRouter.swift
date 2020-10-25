@@ -25,8 +25,7 @@ class AlbumListRouter: ViperRouter, AlbumListRouterInput {
     // MARK: - AlbumListRouterInput
     func pushPhotosListVC(with album: Album) {
         let vc = PhotosListAssembly.create()
-        let input = PhotosListAssembly.configure(with: vc)
-        input.configure(with: album)
+        PhotosListAssembly.configure(with: vc, album: album)
         
         mainController?.navigationController?.pushViewController(vc, animated: true)
     }

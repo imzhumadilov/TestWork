@@ -48,6 +48,12 @@ class AlbumListPresenter: ViperPresenter, AlbumListPresenterInput, AlbumListView
         
         albumUseCase.getAlbums()
     }
+    
+    func pushPhotosListVC(with albumId: String) {
+        guard let album = viewModel.sourceAlbums.first(where: { $0.id == albumId }) else { return }
+        
+        router?.pushPhotosListVC(with: album)
+    }
         
     // MARK: - Module functions
     private func makeSections(with albums: [Album]) {
@@ -58,12 +64,8 @@ class AlbumListPresenter: ViperPresenter, AlbumListPresenterInput, AlbumListView
         
         for album in albums {
             
-            let albumModel = AlbumCellModel(title: album.title)
-            
-            albumModel.action = { [weak self] in
-                self?.router?.pushPhotosListVC(with: album)
-            }
-            
+            let albumModel = AlbumCellModel(title: album.title,
+                                            id: album.id)
             mainSection.rows.append(albumModel)
         }
                 

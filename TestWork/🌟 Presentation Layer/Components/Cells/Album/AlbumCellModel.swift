@@ -10,16 +10,15 @@ import GKRepresentable
 
 class AlbumCellModel: TableCellModel {
     
-    typealias ActionHandler = () -> Void
-    
     override var cellIdentifier: String {
         return AlbumCell.identifier
     }
     
-    public var action: ActionHandler?
     public var title: String
+    public var id: String
     
-    init(title: String) {
+    init(title: String, id: String) {
         self.title = title
+        self.id = id
     }
 }

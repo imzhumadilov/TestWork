@@ -37,21 +37,25 @@ class PhotosListViewController: ViperViewController, PhotosListViewInput {
     
     // MARK: - Setup functions
     func setupComponents() {
-        navigationItem.title = "Photos"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(rightBarButtonItemTapped))
+        navigationItem.title = AppLocalization.NavigationTitle.photos.localized
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: AppLocalization.General.save.localized,
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(rightBarButtonItemTapped))
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorStyle = .none
         tableView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 8.0, right: 0.0)
-        tableView.backgroundColor = .clear
-        tableView.clipsToBounds = true
         tableView.registerCellNib(PhotoCell.self)
     }
     
     func setupActions() { }
     
-    func applyStyles() { }
+    func applyStyles() {
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
+        tableView.clipsToBounds = true
+    }
     
     // MARK: - PhotosListViewInput
     override func setupInitialState(with viewModel: ViperViewModel) {

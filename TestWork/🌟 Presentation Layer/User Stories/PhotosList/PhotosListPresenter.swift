@@ -34,9 +34,11 @@ class PhotosListPresenter: ViperPresenter, PhotosListPresenterInput, PhotosListV
     private let albumUseCase: AlbumUseCaseInput
     private var viewModel: PhotosListViewModel
     
+    private let dispatchGroup = DispatchGroup()
+    
     // MARK: - Initialization
-    override init() {
-        viewModel = PhotosListViewModel()
+    init(album: Album) {
+        viewModel = PhotosListViewModel(album: album)
         photoUseCase = PhotoUseCase()
         albumUseCase = AlbumUseCase()
         
@@ -54,18 +56,22 @@ class PhotosListPresenter: ViperPresenter, PhotosListPresenterInput, PhotosListV
     override func viewIsReady(_ controller: UIViewController) {
         view?.setupInitialState(with: viewModel)
         
-        guard let albumId = viewModel.album?.id else { return }
-        photoUseCase.getPhotos(albumId: albumId)
+        photoUseCase.getPhotos(albumId: viewModel.album.id)
     }
     
     func saveAlbum() {
-//        guard let album = viewModel.album else { return }
-//
-//        albumUseCase.localUpdateAlbum(album: album)
-//        photoUseCase.localUpdatePhotos(photos: album.photos)
+
+        // MARK: - Save album
+//        albumUseCase.localUpdateAlbum(album: viewModel.album)
+//        savePhotos()
         
-        albumUseCase.localGetAlbums()
-        photoUseCase.localGetPhotos()
+        // MARK: - Get album
+//        albumUseCase.localGetAlbums()
+//        photoUseCase.localGetPhotos(with: viewModel.album.id)
+        
+        // MARK: - Remove album
+//        albumUseCase.localRemoveAlbum(with: viewModel.album.id)
+//        photoUseCase.localRemovePhotos(with: viewModel.album.id)
     }
     
     // MARK: - Module functions
@@ -84,6 +90,18 @@ class PhotosListPresenter: ViperPresenter, PhotosListPresenterInput, PhotosListV
         }
         view?.updateSections([mainSection])
     }
+    
+    private func savePhotos() {
+        
+        viewModel.sourcePhotos.forEach {
+            dispatchGroup.enter()
+            photoUseCase.getImageWithData(photo: $0)
+        }
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            guard let self = self else { return }
+            self.photoUseCase.localUpdatePhotos(photos: self.viewModel.album.photos)
+        }
+    }
 }
 
 extension PhotosListPresenter: PhotoUseCaseOutput {
@@ -93,25 +111,42 @@ extension PhotosListPresenter: PhotoUseCaseOutput {
         makeSections(with: photos)
     }
     
-    func localUpdatedPhotos(_ photos: [Photo]) {
-        photos.forEach { print($0.albumId, $0.id, "PHOTO") }
+    // MARK: - Save photos
+    func gotImageWithData(_ photo: Photo) {
+        viewModel.photos.append(photo)
+        dispatchGroup.leave()
     }
     
+    func localUpdatedPhotos(_ photos: [Photo]) {
+        photos.forEach { print($0.albumId, $0.id, "PHOTOS") }
+    }
+    
+    // MARK: - Get photos
     func localGotPhotos(_ photos: [Photo]) {
-        guard let album = viewModel.album else { return }
-        
-        photos.filter({ $0.albumId == album.id })
-            .forEach { print($0.albumId, $0.id, "GET PHOTO") }
+        photos.filter({ $0.albumId == viewModel.album.id })
+            .forEach { print($0.albumId, $0.image.data, "GET PHOTOS") }
+    }
+    
+    // MARK: - Remove photos
+    func localRemovedPhotos() {
+        print("PHOTOS WERE DELETED")
     }
 }
 
 extension PhotosListPresenter: AlbumUseCaseOutput {
     
+    // MARK: - Save album
     func localUpdatedAlbum(_ album: Album) {
         print(album.id, "ALBUM")
     }
     
+    // MARK: - Get albums
     func localGotAlbums(_ albums: [Album]) {
-        albums.forEach { print($0.id, "GET ALBUM") }
+        albums.forEach { print($0.id, "GET ALBUMS") }
+    }
+    
+    // MARK: - Remove albums
+    func localRemovedAlbum() {
+        print("ALBUM WAS DELETED")
     }
 }

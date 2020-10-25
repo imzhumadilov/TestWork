@@ -13,7 +13,9 @@ protocol AlbumListViewInput: ViperViewInput {
     func updateSections(_ sections: [TableSectionModel])
 }
 
-protocol AlbumListViewOutput: ViperViewOutput { }
+protocol AlbumListViewOutput: ViperViewOutput {
+    func pushPhotosListVC(with albumId: String)
+}
 
 class AlbumListViewController: ViperViewController, AlbumListViewInput {
 
@@ -35,21 +37,21 @@ class AlbumListViewController: ViperViewController, AlbumListViewInput {
     
     // MARK: - Setup functions
     func setupComponents() {
-        navigationItem.title = "Albums"
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.title = AppLocalization.NavigationTitle.albums.localized
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorStyle = .none
         tableView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 8.0, right: 0.0)
-        tableView.backgroundColor = .clear
-        tableView.clipsToBounds = true
         tableView.registerCellNib(AlbumCell.self)
     }
     
     func setupActions() { }
     
-    func applyStyles() { }
+    func applyStyles() {
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
+        tableView.clipsToBounds = true
+    }
     
     // MARK: - AlbumListViewInput
     override func setupInitialState(with viewModel: ViperViewModel) {
@@ -104,7 +106,7 @@ extension AlbumListViewController: UITableViewDelegate, UITableViewDataSource {
         let model = sections[indexPath.section].rows[indexPath.row]
 
         if let model = model as? AlbumCellModel {
-            model.action?()
+            output?.pushPhotosListVC(with: model.id)
         }
     }
 }
