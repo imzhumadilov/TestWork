@@ -59,16 +59,17 @@ class PhotosListPresenter: ViperPresenter, PhotosListPresenterInput, PhotosListV
     }
     
     func saveAlbum() {
-        guard let album = viewModel.album else { return }
+//        guard let album = viewModel.album else { return }
+//
+//        albumUseCase.localUpdateAlbum(album: album)
+//        photoUseCase.localUpdatePhotos(photos: album.photos)
         
-        albumUseCase.localUpdateAlbum(album: album)
-        photoUseCase.localUpdatePhotos(photos: album.photos)
+        albumUseCase.localGetAlbums()
+        photoUseCase.localGetPhotos()
     }
     
     // MARK: - Module functions
     private func makeSections(with photos: [Photo]) {
-        
-        viewModel.sourcePhotos = photos
         
         let mainSection = TableSectionModel()
         
@@ -88,17 +89,29 @@ class PhotosListPresenter: ViperPresenter, PhotosListPresenterInput, PhotosListV
 extension PhotosListPresenter: PhotoUseCaseOutput {
     
     func gotPhotos(_ photos: [Photo]) {
+        viewModel.sourcePhotos = photos
         makeSections(with: photos)
     }
     
-    func localUpdatedAlbum(_ album: Album) {
-        print(album.id, "ALBUM")
+    func localUpdatedPhotos(_ photos: [Photo]) {
+        photos.forEach { print($0.albumId, $0.id, "PHOTO") }
+    }
+    
+    func localGotPhotos(_ photos: [Photo]) {
+        guard let album = viewModel.album else { return }
+        
+        photos.filter({ $0.albumId == album.id })
+            .forEach { print($0.albumId, $0.id, "GET PHOTO") }
     }
 }
 
 extension PhotosListPresenter: AlbumUseCaseOutput {
     
-    func localUpdatedPhotos(_ photos: [Photo]) {
-        photos.forEach { print($0.albumId, $0.id, "PHOTO") }
+    func localUpdatedAlbum(_ album: Album) {
+        print(album.id, "ALBUM")
+    }
+    
+    func localGotAlbums(_ albums: [Album]) {
+        albums.forEach { print($0.id, "GET ALBUM") }
     }
 }
