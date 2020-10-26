@@ -29,9 +29,14 @@ class InitialRouter: ViperRouter, InitialRouterInput {
             AlbumListAssembly.configure(with: albumsVC)
             let albumsNC = BasicNavigationController(rootViewController: albumsVC)
             
+            let savedAlbumsVC = SavedAlbumsAssembly.create()
+            SavedAlbumsAssembly.configure(with: savedAlbumsVC)
+            let savedAlbumsNC = BasicNavigationController(rootViewController: savedAlbumsVC)
+            
             let viewModel: [BasicTabBarViewModel] = [BasicTabBarViewModel(title: AppLocalization.TabBar.network.localized,
-                                                                          controller: albumsNC,
-                                                                          image: nil)]
+                                                                          controller: albumsNC),
+                                                     BasicTabBarViewModel(title: AppLocalization.TabBar.database.localized,
+                                                                          controller: savedAlbumsNC)]
             
             let tabVC = AZTabBarController(withTabIcons: viewModel.map({ $0.image ?? UIImage() }))
             

@@ -32,8 +32,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let vc = InitialAssembly.create()
 //        InitialAssembly.configure(with: vc)
         
-        let vc = AlbumListAssembly.create()
-        AlbumListAssembly.configure(with: vc)
+//        let vc = AlbumListAssembly.create()
+//        AlbumListAssembly.configure(with: vc)
+        
+        let vc = SavedAlbumsAssembly.create()
+        SavedAlbumsAssembly.configure(with: vc)
+        
         let navigationController = UINavigationController(rootViewController: vc)
 
         self.window = window

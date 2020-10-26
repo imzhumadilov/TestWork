@@ -1,28 +1,27 @@
 //
-//  FullImageViewController.swift
+//  SavedFullImageViewController.swift
 //  TestWork
 //
-//  Created by Ilyas Zhumadilov on 22.10.2020.
+//  Created by Ilyas Zhumadilov on 26.10.2020.
 //  Copyright © 2020 ___ORGANIZATIONNAME___. All rights reserved.
 //
 
 import GKViper
-import Kingfisher
 
-protocol FullImageViewInput: ViperViewInput {
-    func setupImage(with imageUrl: String)
+protocol SavedFullImageViewInput: ViperViewInput {
+    func setupImage(with imageData: Data)
 }
 
-protocol FullImageViewOutput: ViperViewOutput { }
+protocol SavedFullImageViewOutput: ViperViewOutput { }
 
-class FullImageViewController: ViperViewController, FullImageViewInput {
+class SavedFullImageViewController: ViperViewController, SavedFullImageViewInput {
 
     // MARK: - Outlets
     @IBOutlet private weak var photoImageView: UIImageView!
     
     // MARK: - Props
-    fileprivate var output: FullImageViewOutput? {
-        guard let output = self._output as? FullImageViewOutput else { return nil }
+    fileprivate var output: SavedFullImageViewOutput? {
+        guard let output = self._output as? SavedFullImageViewOutput else { return nil }
         return output
     }
     
@@ -33,7 +32,7 @@ class FullImageViewController: ViperViewController, FullImageViewInput {
     
     // MARK: - Setup functions
     func setupComponents() {
-        self.navigationItem.title = AppLocalization.Navigation.photo.localized
+        self.navigationItem.title = ""
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         photoImageView.image = nil
@@ -43,7 +42,7 @@ class FullImageViewController: ViperViewController, FullImageViewInput {
     
     func applyStyles() { }
     
-    // MARK: - FullImageViewInput
+    // MARK: - SavedFullImageViewInput
     override func setupInitialState(with viewModel: ViperViewModel) {
         super.setupInitialState(with: viewModel)
         
@@ -51,13 +50,13 @@ class FullImageViewController: ViperViewController, FullImageViewInput {
         self.setupActions()
     }
     
-    func setupImage(with imageUrl: String) {
-        photoImageView.kf.setImage(with: URL(string: imageUrl))
+    func setupImage(with imageData: Data) {
+        photoImageView.image = UIImage(data: imageData)
     }
 }
 
 // MARK: - Actions
-extension FullImageViewController { }
+extension SavedFullImageViewController { }
 
 // MARK: - Module functions
-extension FullImageViewController { }
+extension SavedFullImageViewController { }

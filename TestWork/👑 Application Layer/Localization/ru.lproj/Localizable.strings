@@ -35,6 +35,8 @@
 // MARK: - Navidation
 "Albums" = "Альбомы";
 "Photos" = "Фотографии";
+"Photo" = "Фото";
 
 // MARK: - TabBar
 "Network" = "Сеть";
+"Database" = "База данных";

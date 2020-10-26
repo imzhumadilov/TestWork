@@ -8,9 +8,7 @@
 
 import GKViper
 
-protocol FullImagePresenterInput: ViperPresenterInput {
-    func configure(with imageUrl: String)
-}
+protocol FullImagePresenterInput: ViperPresenterInput { }
 
 class FullImagePresenter: ViperPresenter, FullImagePresenterInput, FullImageViewOutput {
     
@@ -37,9 +35,6 @@ class FullImagePresenter: ViperPresenter, FullImagePresenterInput, FullImageView
     }
     
     // MARK: - FullImagePresenterInput
-    func configure(with imageUrl: String) {
-        viewModel.imageUrl = imageUrl
-    }
     
     // MARK: - FullImageViewOutput
     override func viewIsReady(_ controller: UIViewController) {

@@ -69,9 +69,11 @@ enum AppLocalization {
     enum Navigation: String, Localizable {
         case albums     = "Albums"
         case photos     = "Photos"
+        case photo      = "Photo"
     }
     
     enum TabBar: String, Localizable {
         case network    = "Network"
+        case database   = "Database"
     }
 }

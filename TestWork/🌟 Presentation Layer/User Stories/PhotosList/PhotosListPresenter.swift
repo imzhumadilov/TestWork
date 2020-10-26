@@ -9,9 +9,7 @@
 import GKViper
 import GKRepresentable
 
-protocol PhotosListPresenterInput: ViperPresenterInput {
-    func configure(with album: Album)
-}
+protocol PhotosListPresenterInput: ViperPresenterInput { }
 
 class PhotosListPresenter: ViperPresenter, PhotosListPresenterInput, PhotosListViewOutput {
     
@@ -48,9 +46,6 @@ class PhotosListPresenter: ViperPresenter, PhotosListPresenterInput, PhotosListV
     }
     
     // MARK: - PhotosListPresenterInput
-    func configure(with album: Album) {
-        viewModel.album = album
-    }
     
     // MARK: - PhotosListViewOutput
     override func viewIsReady(_ controller: UIViewController) {
@@ -60,18 +55,8 @@ class PhotosListPresenter: ViperPresenter, PhotosListPresenterInput, PhotosListV
     }
     
     func saveAlbum() {
-
-        // MARK: - Save album
-//        albumUseCase.localUpdateAlbum(album: viewModel.album)
-//        savePhotos()
-        
-        // MARK: - Get album
-//        albumUseCase.localGetAlbums()
-//        photoUseCase.localGetPhotos(with: viewModel.album.id)
-        
-        // MARK: - Remove album
-//        albumUseCase.localRemoveAlbum(with: viewModel.album.id)
-//        photoUseCase.localRemovePhotos(with: viewModel.album.id)
+        albumUseCase.localUpdateAlbum(album: viewModel.album)
+        savePhotos()
     }
     
     // MARK: - Module functions
@@ -118,18 +103,7 @@ extension PhotosListPresenter: PhotoUseCaseOutput {
     }
     
     func localUpdatedPhotos(_ photos: [Photo]) {
-        photos.forEach { print($0.albumId, $0.id, "PHOTOS") }
-    }
-    
-    // MARK: - Get photos
-    func localGotPhotos(_ photos: [Photo]) {
-        photos.filter({ $0.albumId == viewModel.album.id })
-            .forEach { print($0.albumId, $0.image.data, "GET PHOTOS") }
-    }
-    
-    // MARK: - Remove photos
-    func localRemovedPhotos() {
-        print("PHOTOS WERE DELETED")
+        photos.forEach { print($0.albumId, $0.id, "PHOTOS WERE SAVED") }
     }
 }
 
@@ -137,16 +111,6 @@ extension PhotosListPresenter: AlbumUseCaseOutput {
     
     // MARK: - Save album
     func localUpdatedAlbum(_ album: Album) {
-        print(album.id, "ALBUM")
-    }
-    
-    // MARK: - Get albums
-    func localGotAlbums(_ albums: [Album]) {
-        albums.forEach { print($0.id, "GET ALBUMS") }
-    }
-    
-    // MARK: - Remove albums
-    func localRemovedAlbum() {
-        print("ALBUM WAS DELETED")
+        print(album.id, "ALBUM WAS SAVED")
     }
 }

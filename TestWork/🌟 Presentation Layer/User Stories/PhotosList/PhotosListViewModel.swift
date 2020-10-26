@@ -10,11 +10,7 @@ import GKViper
 
 class PhotosListViewModel: ViperViewModel {
     public var album: Album
-    public var sourcePhotos: [Photo] = [] {
-        didSet {
-            album.photos = sourcePhotos
-        }
-    }
+    public var sourcePhotos: [Photo] = []
     public var photos: [Photo] = [] {
         didSet {
             album.photos = photos

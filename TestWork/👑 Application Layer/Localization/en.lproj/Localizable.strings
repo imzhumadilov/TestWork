@@ -35,6 +35,8 @@
 // MARK: - Navidation
 "Albums" = "Albums";
 "Photos" = "Photos";
+"Photo" = "Photo";
 
 // MARK: - TabBar
 "Network" = "Network";
+"Database" = "Database";
