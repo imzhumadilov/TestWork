@@ -29,19 +29,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Window configuration
     private func setup(_ window: UIWindow) {
-//        let vc = InitialAssembly.create()
-//        InitialAssembly.configure(with: vc)
+        let vc = InitialAssembly.create()
+        InitialAssembly.configure(with: vc)
         
 //        let vc = AlbumListAssembly.create()
 //        AlbumListAssembly.configure(with: vc)
         
-        let vc = SavedAlbumsAssembly.create()
-        SavedAlbumsAssembly.configure(with: vc)
+//        let vc = SavedAlbumsAssembly.create()
+//        SavedAlbumsAssembly.configure(with: vc)
         
-        let navigationController = UINavigationController(rootViewController: vc)
+//        let navigationController = UINavigationController(rootViewController: vc)
 
         self.window = window
-        self.window?.rootViewController = navigationController
+        self.window?.rootViewController = vc
         self.window?.makeKeyAndVisible()
     }
 }

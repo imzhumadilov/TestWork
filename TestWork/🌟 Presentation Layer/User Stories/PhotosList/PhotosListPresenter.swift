@@ -32,8 +32,6 @@ class PhotosListPresenter: ViperPresenter, PhotosListPresenterInput, PhotosListV
     private let albumUseCase: AlbumUseCaseInput
     private var viewModel: PhotosListViewModel
     
-    private let dispatchGroup = DispatchGroup()
-    
     // MARK: - Initialization
     init(album: Album) {
         viewModel = PhotosListViewModel(album: album)
@@ -56,7 +54,7 @@ class PhotosListPresenter: ViperPresenter, PhotosListPresenterInput, PhotosListV
     
     func saveAlbum() {
         albumUseCase.localUpdateAlbum(album: viewModel.album)
-        savePhotos()
+        photoUseCase.getImageWithData(photos: viewModel.sourcePhotos)
     }
     
     // MARK: - Module functions
@@ -75,18 +73,6 @@ class PhotosListPresenter: ViperPresenter, PhotosListPresenterInput, PhotosListV
         }
         view?.updateSections([mainSection])
     }
-    
-    private func savePhotos() {
-        
-        viewModel.sourcePhotos.forEach {
-            dispatchGroup.enter()
-            photoUseCase.getImageWithData(photo: $0)
-        }
-        dispatchGroup.notify(queue: .main) { [weak self] in
-            guard let self = self else { return }
-            self.photoUseCase.localUpdatePhotos(photos: self.viewModel.album.photos)
-        }
-    }
 }
 
 extension PhotosListPresenter: PhotoUseCaseOutput {
@@ -97,9 +83,9 @@ extension PhotosListPresenter: PhotoUseCaseOutput {
     }
     
     // MARK: - Save photos
-    func gotImageWithData(_ photo: Photo) {
-        viewModel.photos.append(photo)
-        dispatchGroup.leave()
+    func gotPhotosWithData(_ photos: [Photo]) {
+        viewModel.photos = photos
+        photoUseCase.localUpdatePhotos(photos: viewModel.album.photos)
     }
     
     func localUpdatedPhotos(_ photos: [Photo]) {

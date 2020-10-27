@@ -21,6 +21,7 @@ class PhotoCell: TableCell {
         
         titleLabel.text = nil
         photoImageView?.image = nil
+        photoImageView.apply(.cornerRadiusWithHalfHeightStyle())
         photoButton.addTarget(self, action: #selector(photoButtonTapped), for: .touchUpInside)
     }
     

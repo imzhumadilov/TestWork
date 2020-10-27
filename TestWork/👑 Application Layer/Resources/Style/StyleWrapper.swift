@@ -18,7 +18,7 @@ extension StyleWrapper where Element: UIView {
     
     static func backgroundViewStyle() -> StyleWrapper {
         return .wrap { view in
-            view.backgroundColor = .blue
+            view.backgroundColor = .lightGray
         }
     }
     
@@ -28,6 +28,12 @@ extension StyleWrapper where Element: UIView {
         }
     }
     
+    static func cornerRadiusWithHalfHeightStyle() -> StyleWrapper {
+        return .wrap { view in
+            view.layer.cornerRadius = view.bounds.height / 2
+            view.layer.masksToBounds = true
+        }
+    }
 }
 
 extension StyleWrapper where Element: UIImageView {
@@ -46,4 +52,19 @@ extension StyleWrapper where Element: UIImageView {
         }
     }
     
+    static func cornerRadiusWithHalfHeightStyle() -> StyleWrapper {
+        return .wrap { imageView in
+            imageView.layer.masksToBounds = true
+            imageView.layer.cornerRadius = imageView.bounds.height / 2
+        }
+    }
+}
+
+extension StyleWrapper where Element: UITableView {
+    
+    static func backgroundClearStyle() -> StyleWrapper {
+        return .wrap { tableView in
+            tableView.backgroundColor = .clear
+        }
+    }
 }

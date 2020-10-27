@@ -45,16 +45,16 @@ class InitialRouter: ViperRouter, InitialRouterInput {
                 tabVC.setViewController(viewModel[index].controller, atIndex: index)
             }
             
-            tabVC.selectedColor = AppTheme.textMain
-            tabVC.highlightColor = AppTheme.textMain
-//            tabVC.defaultColor = AppTheme.subControls
-            tabVC.buttonsBackgroundColor = .white
+            tabVC.selectedColor = .white
+//            tabVC.highlightColor = .green
+            tabVC.defaultColor = .black
+            tabVC.buttonsBackgroundColor = .brown
             tabVC.selectionIndicatorHeight = 0
-            tabVC.selectionIndicatorColor = .clear
+//            tabVC.selectionIndicatorColor = .orange
             tabVC.separatorLineColor = .clear
-            tabVC.tabBarHeight = 59.0
-            tabVC.statusBarStyle = .default
-            tabVC.setIndex(1)
+            tabVC.tabBarHeight = 66.0
+//            tabVC.statusBarStyle = .default
+            tabVC.setIndex(0)
             
             tabVC.modalPresentationStyle = .fullScreen
             

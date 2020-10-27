@@ -29,11 +29,11 @@ class BasicNavigationController: UINavigationController {
     
     private func setupUI() {
         self.navigationBar.isTranslucent = true
-        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationBar.shadowImage = UIImage()
-        self.navigationBar.backgroundColor = .clear
-        self.navigationBar.isUserInteractionEnabled = false
-        self.navigationBar.tintColor = AppTheme.textMain
+//        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        self.navigationBar.shadowImage = UIImage()
+        self.navigationBar.backgroundColor = .yellow
+//        self.navigationBar.isUserInteractionEnabled = false
+        self.navigationBar.tintColor = .black
 //        self.navigationBar.titleTextAttributes = [.font: NunitoSans.extraBold.font(size: 20.0),
 //                                                  .foregroundColor: AppTheme.textMain]
         
@@ -45,5 +45,4 @@ class BasicNavigationController: UINavigationController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return AppTheme.statusBarStyle
     }
-    
 }

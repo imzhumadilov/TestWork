@@ -293,9 +293,9 @@
 				281AB7592545FDD200AA5C1E /* AZTabBarButton.swift */,
 				281AB7572545FDD200AA5C1E /* AZTabBarButtonDelegate.swift */,
 				281AB75A2545FDD200AA5C1E /* AZTabBarController.swift */,
-				281AB7582545FDD200AA5C1E /* AZTabBarController.xib */,
 				281AB75B2545FDD200AA5C1E /* AZTabBarDelegate.swift */,
 				281AB75C2545FDD200AA5C1E /* BasicTabBarController.swift */,
+				281AB7582545FDD200AA5C1E /* AZTabBarController.xib */,
 			);
 			path = TabBarController;
 			sourceTree = "<group>";

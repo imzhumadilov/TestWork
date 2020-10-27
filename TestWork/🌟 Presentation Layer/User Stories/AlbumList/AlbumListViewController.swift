@@ -51,6 +51,10 @@ class AlbumListViewController: ViperViewController, AlbumListViewInput {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         tableView.clipsToBounds = true
+        
+        view.apply(.backgroundViewStyle())
+        tableView.apply(.backgroundClearStyle())
+        
     }
     
     // MARK: - AlbumListViewInput

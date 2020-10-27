@@ -14,6 +14,7 @@ enum FullImageAssembly {
         FullImageViewController(nibName: FullImageViewController.identifier, bundle: nil)
     }
     
+    @discardableResult
     static func configure(with reference: FullImageViewController, imageUrl: String) -> FullImagePresenterInput {
         let presenter = FullImagePresenter(imageUrl: imageUrl)
         

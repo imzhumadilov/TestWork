@@ -9,7 +9,7 @@ import GKUseCase
 
 protocol PhotoUseCaseInput: UseCaseInput {
     func getPhotos(albumId: String)
-    func getImageWithData(photo: Photo)
+    func getImageWithData(photos: [Photo])
     func localGetPhotos(with albumId: String)
     func localUpdatePhotos(photos: [Photo])
     func localRemovePhotos(with albumId: String)
@@ -17,7 +17,7 @@ protocol PhotoUseCaseInput: UseCaseInput {
 
 protocol PhotoUseCaseOutput: UseCaseOutput {
     func gotPhotos(_ photos: [Photo])
-    func gotImageWithData(_ photo: Photo)
+    func gotPhotosWithData(_ photos: [Photo])
     func loadedPhotoError(_ error: Error)
     func localGotPhotos(_ photos: [Photo])
     func localUpdatedPhotos(_ photos: [Photo])
@@ -28,7 +28,7 @@ protocol PhotoUseCaseOutput: UseCaseOutput {
 
 extension PhotoUseCaseOutput {
     func gotPhotos(_ photos: [Photo]) { }
-    func gotImageWithData(_ photo: Photo) { }
+    func gotPhotosWithData(_ photos: [Photo]) { }
     func loadedPhotoError(_ error: Error) { }
     func localGotPhotos(_ photos: [Photo]) { }
     func localUpdatedPhotos(_ photos: [Photo]) { }
@@ -69,23 +69,34 @@ class PhotoUseCase: UseCase, PhotoUseCaseInput {
         }
     }
     
-    func getImageWithData(photo: Photo) {
+    func getImageWithData(photos: [Photo]) {
         
         guard ReachabilityManager.isConnectedToInternet else {
             output?.noInternetConnectionPhoto()
             return
         }
         
-        photoRepository.getImageWithData(photo: photo) { [weak self] (result) -> Void in
-            
-            switch result {
-            
-            case .success(let photo):
-                self?.output?.gotImageWithData(photo)
+        let dispatchGroup = DispatchGroup()
+        var photosWithData = [Photo]()
+        
+        photos.forEach {
+            dispatchGroup.enter()
+            photoRepository.getImageWithData(photo: $0) { [weak self] (result) -> Void in
                 
-            case .failure(let error):
-                self?.output?.loadedPhotoError(error)
+                switch result {
+                
+                case .success(let photo):
+                    photosWithData.append(photo)
+                    dispatchGroup.leave()
+                    
+                case .failure(let error):
+                    self?.output?.loadedPhotoError(error)
+                }
             }
+        }
+        
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            self?.output?.gotPhotosWithData(photosWithData)
         }
     }
     
